@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些</title>
+  
+  
+  <meta name="description" content="什么都略懂一点，生活更多彩一些">
+  
+
+  
+  <link rel="alternate" href="/atom.xml" title="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/"
+                  
+                  
+                  id="home">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;近期文章
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="categories">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="archives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categories/"
+                
+                  rel="nofollow"
+                
+                
+                id="categories">
+								<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/tags/"
+                
+                  rel="nofollow"
+                
+                
+                id="tags">
+								<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/"
+                
+                  rel="nofollow"
+                
+                
+                id="about">
+								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2019/07/21/android系统镜像/">
+        android系统镜像
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://kujirasama.cn" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Mu Yi</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-07-21</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/安卓架构大剖析/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>安卓架构大剖析</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <p>​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。</p>
+<ul>
+<li>Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入<code>/aboot</code>分区。</li>
+<li>boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在<code>/init.rc</code>和相关文件中规定了其它目录的加载方法。通常被刷入<code>/boot</code>分区。</li>
+<li>recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入<code>/recovery</code>分区。</li>
+<li><code>/system</code>镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。</li>
+<li><code>/data</code>镜像：存放的“默认出厂设置”的数据，它是<code>/system</code>分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="Boot-Loader"><a href="#Boot-Loader" class="headerlink" title="Boot Loader"></a>Boot Loader</h3><p>可以自定义，但是大多数厂商还是选用了LK（Little Kernel）启动加载器。LK并不是android源码树的一部分。LK并不是内核，它只实现了启动功能中最基本的部分（源码 <a href="https://github.com/littlekernel/lk/wiki" target="_blank" rel="noopener">git</a>）。如下：</p>
+<ul>
+<li>基本硬件的支持：在LK的<code>dev/</code>（屏幕帧缓存，按键和被用作usb设备）、<code>platform/</code>（soc驱动）、<code>target/</code>（设备中特定硬件的驱动）等源码树种支持。</li>
+<li>找到并启动内核：找到bootimage，并对它进行解析（内核镜像、ramdisk和设备树），随后运行指定的命令行，把系统的控制权交个内核。这部分代码在<code>app/aboot</code>中。</li>
+<li>基本的UI：在用户中断（<code>adb reboot boot loader</code>）命令时或者在一开始启动时通过特定按键终止启动（这里小米应该是重启时按住音量下键不放）时，aboot能够提供一个简单的界面，用户可以通过物理按键来进行操作。</li>
+<li>支持console：一般在调试母版中才有此功能，在<code>lib/console</code>（被<code>app/shell</code>调用）中提供一个单独的解释器（单独的线程），并且支持用户往里面添加新命令。在<code>lib/gfxconsole</code>中还提供了字体之类的基本图形功能。</li>
+<li>被用作usb目标设备：是Boot Loader可以通过名为fastboot的协议与电脑进行通信。其实现在<code>app/aboot/fastboot.c</code>中，可以按照需求扩展。</li>
+<li>支持闪存分区：支持基本的文件系统，在系统升级或者recovery过程中，能够擦除或者重写一些分区。这部分源码在<code>lib/fs</code>中。</li>
+<li>支持数字签名：能够加载用SSL证书做过数字签名的镜像。在<code>lib/openssl</code>源码中集成了OpenSSL项目的中部分代码。</li>
+</ul>
+<h4 id="bootloader-镜像"><a href="#bootloader-镜像" class="headerlink" title="bootloader 镜像"></a>bootloader 镜像</h4><p>BootLoader能够像其他的系统镜像一样能够更新或者重刷。android源码树中提供了releasetools.py脚本中给出了bootloader镜像文件头的格式。根据文件头格式，用<a href="http://newandroidbook.com/tools/imgtool.html" target="_blank" rel="noopener">imgtool</a>就可以解析出bootloader中所包含的镜像(Nexus 5的BootLoader镜像)：</p>
+<table>
+<thead>
+<tr>
+<th>img</th>
+<th>usage</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sbl1</td>
+<td>Secondary Boot Loader，stage 1</td>
+<td>次级Boot Loader</td>
+</tr>
+<tr>
+<td>tz</td>
+<td>TrustZone image</td>
+<td>ARM TrustZone 镜像</td>
+</tr>
+<tr>
+<td>rpm</td>
+<td>Resource Power Mgmt</td>
+<td>资源电源管理引导模块</td>
+</tr>
+<tr>
+<td>aboot</td>
+<td>Application Boot Loader</td>
+<td>应用处理器的BootLoader</td>
+</tr>
+<tr>
+<td>sdi</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>imgdata</td>
+<td>RLE565 graphics used by boot loader</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>Nexus 5使用的骁龙的处理器，它的aboot镜像包含40字节头：</p>
+<table>
+<thead>
+<tr>
+<th>偏移量</th>
+<th>字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00</td>
+<td>文件签名</td>
+<td>0x00000005（常量）</td>
+</tr>
+<tr>
+<td>0x04</td>
+<td>版本</td>
+<td>版本号</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td>？</td>
+<td>0填充</td>
+</tr>
+<tr>
+<td>0x0c</td>
+<td>镜像加载地址</td>
+<td>把镜像的除头部以外的部分加载到这个字段指定的内存地址上</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>镜像大小</td>
+<td>aboot的镜像大小</td>
+</tr>
+<tr>
+<td>0x14</td>
+<td>代码大小</td>
+<td>aboot中的代码大小</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td>最后一条指定的地址</td>
+<td>镜像加载基地址+代码大小</td>
+</tr>
+<tr>
+<td>0x1c</td>
+<td>数字签名大小</td>
+<td>数字签名的大小（一般为0x100字节）</td>
+</tr>
+<tr>
+<td>0x20</td>
+<td>被加载到内存中的最后一个字节的地址</td>
+<td>最后一条指令的地址+数字签名的大小</td>
+</tr>
+<tr>
+<td>0x24</td>
+<td>证书链</td>
+<td>证书链的大小（可选）</td>
+</tr>
+</tbody></table>
+<p>紧挨着这个头部的后面就是arm的可启动镜像，这个镜像会被加载到0x0c指定的内存地址中去，镜像的头部存放的是一些arm异常处理向量，也就是一些跳转指令，当发生某些异常（中断、异常或停机）时，处理器就会根据异常处理向量中的指令跳转到指定的代码中去。根据LK中的定义，这个向量中的第一条时reset处理函数。</p>
+<p>下方列出了去掉文件头后提取数字签名的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">od -A d -t x4 aboot | head -5 #od命令解析aboot镜像</span><br><span class="line">dd if=aboot of=aboot.sans.header bs=40 skip=1</span><br><span class="line">dd if=aboot.sans.header of=certs bs=0x3e62c skip=1 #0x3e62c为 镜像大小+数字签名大小</span><br></pre></td></tr></table></figure>
+
+<h3 id="Boot镜像"><a href="#Boot镜像" class="headerlink" title="Boot镜像"></a>Boot镜像</h3><p>android的Boot镜像包含<strong>内核</strong>和<strong>RAM disk</strong>。它由android源码树中的<em>mkbootimg</em>创建。Boot镜像有一个很小的头部、内核命令行、一个hash以及一个可选的二级启动加载器。所有这组件都是闪存页边界（通常为2KB）对齐的。可以用下面的命令去掉Boot镜像的头部（HTC定义的头部）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=boot of=boot.sans.header bs=0x100 skip=1 #去掉头部</span><br></pre></td></tr></table></figure>
+
+<p>Boot镜像的格式在bootimg.h的源码中定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** +-----------------+ </span></span><br><span class="line"><span class="comment">** | boot header     | 1 page</span></span><br><span class="line"><span class="comment">** +-----------------+</span></span><br><span class="line"><span class="comment">** | kernel          | n pages</span></span><br><span class="line"><span class="comment">** +-----------------+</span></span><br><span class="line"><span class="comment">** | ramdisk         | m pages</span></span><br><span class="line"><span class="comment">** +-----------------+</span></span><br><span class="line"><span class="comment">** | second stage    | o pages</span></span><br><span class="line"><span class="comment">** +-----------------+</span></span><br><span class="line"><span class="comment">** | device tree     | p pages</span></span><br><span class="line"><span class="comment">** +-----------------+</span></span><br><span class="line"><span class="comment">**</span></span><br><span class="line"><span class="comment">** n = (kernel_size + page_size - 1) / page_size</span></span><br><span class="line"><span class="comment">** m = (ramdisk_size + page_size - 1) / page_size</span></span><br><span class="line"><span class="comment">** o = (second_size + page_size - 1) / page_size</span></span><br><span class="line"><span class="comment">** p = (dt_size + page_size - 1) / page_size</span></span><br><span class="line"><span class="comment">**</span></span><br><span class="line"><span class="comment">** 0. all entities are page_size aligned in flash</span></span><br><span class="line"><span class="comment">** 1. kernel and ramdisk are required (size != 0)</span></span><br><span class="line"><span class="comment">** 2. second is optional (second_size == 0 -&gt; no second)</span></span><br><span class="line"><span class="comment">** 3. load each element (kernel, ramdisk, second) at</span></span><br><span class="line"><span class="comment">**    the specified physical address (kernel_addr, etc)</span></span><br><span class="line"><span class="comment">** 4. prepare tags at tag_addr.  kernel_args[] is</span></span><br><span class="line"><span class="comment">**    appended to the kernel commandline in the tags.</span></span><br><span class="line"><span class="comment">** 5. r0 = 0, r1 = MACHINE_TYPE, r2 = tags_addr</span></span><br><span class="line"><span class="comment">** 6. if second_size != 0: jump to second_addr</span></span><br><span class="line"><span class="comment">**    else: jump to kernel_addr</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">boot_img_hdr</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">uint8_t</span> magic[BOOT_MAGIC_SIZE];</span><br><span class="line">    <span class="keyword">uint32_t</span> kernel_size;  <span class="comment">/* size in bytes */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> kernel_addr;  <span class="comment">/* physical load addr */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> ramdisk_size; <span class="comment">/* size in bytes */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> ramdisk_addr; <span class="comment">/* physical load addr */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> second_size;  <span class="comment">/* size in bytes */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> second_addr;  <span class="comment">/* physical load addr */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> tags_addr;    <span class="comment">/* physical addr for kernel tags */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> page_size;    <span class="comment">/* flash page size we assume */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> dt_size;      <span class="comment">/* device tree in bytes */</span></span><br><span class="line">    <span class="keyword">uint32_t</span> unused;       <span class="comment">/* future expansion: should be 0 */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> name[BOOT_NAME_SIZE]; <span class="comment">/* asciiz product name */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> cmdline[BOOT_ARGS_SIZE];</span><br><span class="line">    <span class="keyword">uint32_t</span> id[<span class="number">8</span>]; <span class="comment">/* timestamp / checksum / sha1 / etc */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>linux的内核大多是经过压缩的。内核镜像文件格式（一般为zImage）要求镜像中需要有用来把内核中压缩过的部分解压到内存中的自解压代码。镜像压缩的算法有多种，可以在内核build过程中通过<code>make config</code>决定：</p>
+<table>
+<thead>
+<tr>
+<th>压缩算法的签名</th>
+<th>对应的压缩算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\x1f\x8b\x08\x00\x00\x00\x00\x00</td>
+<td>GZip</td>
+<td>最常见的压缩算法</td>
+</tr>
+<tr>
+<td>\89LZOx00\x0d\x0a\x1a\x0a</td>
+<td>LZO</td>
+<td>比GZip快，但是压缩率低10%左右。三星用的这种算法</td>
+</tr>
+</tbody></table>
+<p>内核总是最先运行自解压代码，通过搜索压缩算法的签名来确认如何解压。用<code>imgtool</code>可以解压GZip和LZO算法压缩的镜像。</p>
+<p>内核是android系统中与体系结构中最为紧密相关（主板类型、芯片组类型，移动设备中为SoC类型），内核为芯片提供专用的驱动，这些驱动是android源码树的一部分，不同的芯片组对应不同的内核设备树：</p>
+<table>
+<thead>
+<tr>
+<th>项目名称</th>
+<th>芯片组厂商</th>
+<th>设备</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>goldfish</td>
+<td>N/A</td>
+<td>android emulator</td>
+</tr>
+<tr>
+<td>msm</td>
+<td>Qualcomm MSM</td>
+<td>Nexus One, Nexus 4, Nexus 5</td>
+</tr>
+<tr>
+<td>cmap</td>
+<td>TI OMAP</td>
+<td>Galaxy Nexus, Glass</td>
+</tr>
+<tr>
+<td>samsung</td>
+<td>samsung</td>
+<td>Nexus S</td>
+</tr>
+<tr>
+<td>tegra</td>
+<td>NVIDIA</td>
+<td>moto Xoom,Nexus 7&amp;9, Shield</td>
+</tr>
+<tr>
+<td>exynos</td>
+<td>Samsung Exynos</td>
+<td>Nexus 10</td>
+</tr>
+</tbody></table>
+<h4 id="arm中的设备树"><a href="#arm中的设备树" class="headerlink" title="arm中的设备树"></a>arm中的设备树</h4><p>大多数的arm内核需要依赖设备树（device tree）文件来向内核提供硬件设备定义的相关信息。这个文件提供了设备之间的相互关系，内核依据此关系来启动相应的设备。设备树一般加载到内核镜像的尾部，有时也会单独分配一个分区。</p>
+<p>设备树是一个二进制blob文件，通过<em>0xd00dfeed</em>签名来进行识别。具体细节可以参考<a href="https://elinux.org/images/c/cf/Power_ePAPR_APPROVED_v1.1.pdf" target="_blank" rel="noopener">ePAPR specification</a>和<a href="https://bootlin.com/doc/legacy/blob/blob.pdf" target="_blank" rel="noopener">Thomas Petazzoni的关于blob的pdf</a>。</p>
+<h3 id="RAM-disk"><a href="#RAM-disk" class="headerlink" title="RAM disk"></a>RAM disk</h3><p>Boot或者recovery镜像的另一个组件就是<em>initial RAM disk</em>（<em>initrd</em>），在操作系统启动时，它被用作根目录文件系统，它被Boot Loader预加载到RAM中去，不许要其它的驱动。</p>
+<p>initramfs使用来提供内核操作时所需的相关设备的驱动的，由于系统在启动时没有包含任何操作系统，所以initramfs本身是一个文件，而不是一个文件系统镜像。一些重要的驱动文件会包含在这个文件中，内核在启动时就能够在RAM中加载到它们。initramfs中还包含了启动程序<code>/init</code>,内核会把它作为系统中的第一个程序启动起来（pid=1）。</p>
+<h3 id="system与-data镜像"><a href="#system与-data镜像" class="headerlink" title="/system与/data镜像"></a>/system与/data镜像</h3><p>这个两个分区的镜像的存储完全由厂商自己说了算。由于大多数厂商使用的都是fastboot，所以大多数该类镜像都是使用的simg（sparse image）格式。处理这个文件个的工具在asop的<code>/system/core/libsparse</code>的目录下。<br>simg文件的文件头为28个字节，格式如下：</p>
+<table>
+<thead>
+<tr>
+<th>偏移量</th>
+<th>长度</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>4</td>
+<td>文件签名</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>版本号（major_version+minor_version）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2</td>
+<td>头部的大小，总是28</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2</td>
+<td>数据块的大小</td>
+</tr>
+<tr>
+<td>12</td>
+<td>4</td>
+<td>簇的大小，对于ext4来说，这个值一般为0x1000，4KB</td>
+</tr>
+<tr>
+<td>16</td>
+<td>4</td>
+<td>文件系统中簇的个数</td>
+</tr>
+<tr>
+<td>20</td>
+<td>4</td>
+<td>镜像文件中数据块的个数</td>
+</tr>
+<tr>
+<td>24</td>
+<td>4</td>
+<td>校验和（非必须，一般为全0）</td>
+</tr>
+</tbody></table>
+
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-07-21T22:44:27+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>last updated at Jul 21, 2019</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Android/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Android</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/读书笔记/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>读书笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/镜像/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>镜像</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://kujirasama.cn/2019/07/21/android系统镜像/&title=android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。
+
+Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。
+boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在/init.rc和相关文件中规定了其它目录的加载方法。通常被刷入/boot分区。
+recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入/recovery分区。
+/system镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。
+/data镜像：存放的“默认出厂设置”的数据，它是/system分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kujirasama.cn/2019/07/21/android系统镜像/&title=android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。
+
+Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。
+boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在/init.rc和相关文件中规定了其它目录的加载方法。通常被刷入/boot分区。
+recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入/recovery分区。
+/system镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。
+/data镜像：存放的“默认出厂设置”的数据，它是/system分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3awY7qQAwEQP7/p9nrSojQPY4Rh8oJhX3ENU8aOx4/HvH1/He93vl///rb1798vf+8vB4bFx4eHt4g9Ouw3jGSQCeYZHHfLgEeHh7eGi/ZrK9TRRL69e6dPyuJGQ8PD+93eM/guqtonpTmeHh4eL/Ju/6FOpQ4GeDh4eH9Ai9pB+Rd0zbE5PfXey14eHh4C6dIv/N55XwPDw8Pb3yqnrcYNhoN8wsPDw9vg9eWs0mg7dHXWUmdtzDw8PDwNniTf5CMYbXb/aSNWxffeHh4eEe8s9AnqWK+QMX/FR4eHt4yL9mOJwNSbWvjrLjHw8PD2+NdF6kb2/13BhTw8PDwvsObtERzdt5WSBbuwzLh4eHhLfPapmqy6efhni3Nh1IbDw8Pb4HXFtD11jxuN+Sl/4en4+Hh4S3w2lZs3j7IU06+KO1QFx4eHt5dvLwhm397NjiVf07SwIc3Bjw8PLwx72xrPksM+UZ/Q4GOh4eHt8xrX+zboNtRgPYF4O3QFR4eHt6tvPwx82buWTmePL1OFXh4eHgLvLYHnOPPBhHuagfj4eHh3cXbGAVog0iaxUkkb98b8PDw8G7inR3Ynw1pnSHz4y48PDy87/Ams0lJwV23WQcl+9v48fDw8NZ4dSVe3pkU2flxGh4eHt43eXlT4OwwrD3KytNSfaaHh4eHdxOvKFIHg1D5t2eJoZgsw8PDwxvz5s2ItiDOS+TJguLh4eHdy3uW16QlcVfQxXgBHh4e3gKvPYJqhwkmgwWTz3h4eHjbvL1k0K5i26qIEgMeHh7eGi8fGmhhk3SSL8rbX8PDw8P7AV4LO3tWmwZuSwx4eHh4C7zkeCwHtMmmHr3Cw8PDW+O1A09nW3zbJp4sIh4eHt4eb/LCPzm+atl5msHDw8Nb4/0B+JRUuWODLI0AAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://kujirasama.cn/2019/07/21/android系统镜像/&title=android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。
+
+Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。
+boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在/init.rc和相关文件中规定了其它目录的加载方法。通常被刷入/boot分区。
+recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入/recovery分区。
+/system镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。
+/data镜像：存放的“默认出厂设置”的数据，它是/system分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3awY7qQAwEQP7/p9nrSojQPY4Rh8oJhX3ENU8aOx4/HvH1/He93vl///rb1798vf+8vB4bFx4eHt4g9Ouw3jGSQCeYZHHfLgEeHh7eGi/ZrK9TRRL69e6dPyuJGQ8PD+93eM/guqtonpTmeHh4eL/Ju/6FOpQ4GeDh4eH9Ai9pB+Rd0zbE5PfXey14eHh4C6dIv/N55XwPDw8Pb3yqnrcYNhoN8wsPDw9vg9eWs0mg7dHXWUmdtzDw8PDwNniTf5CMYbXb/aSNWxffeHh4eEe8s9AnqWK+QMX/FR4eHt4yL9mOJwNSbWvjrLjHw8PD2+NdF6kb2/13BhTw8PDwvsObtERzdt5WSBbuwzLh4eHhLfPapmqy6efhni3Nh1IbDw8Pb4HXFtD11jxuN+Sl/4en4+Hh4S3w2lZs3j7IU06+KO1QFx4eHt5dvLwhm397NjiVf07SwIc3Bjw8PLwx72xrPksM+UZ/Q4GOh4eHt8xrX+zboNtRgPYF4O3QFR4eHt6tvPwx82buWTmePL1OFXh4eHgLvLYHnOPPBhHuagfj4eHh3cXbGAVog0iaxUkkb98b8PDw8G7inR3Ynw1pnSHz4y48PDy87/Ams0lJwV23WQcl+9v48fDw8NZ4dSVe3pkU2flxGh4eHt43eXlT4OwwrD3KytNSfaaHh4eHdxOvKFIHg1D5t2eJoZgsw8PDwxvz5s2ItiDOS+TJguLh4eHdy3uW16QlcVfQxXgBHh4e3gKvPYJqhwkmgwWTz3h4eHjbvL1k0K5i26qIEgMeHh7eGi8fGmhhk3SSL8rbX8PDw8P7AV4LO3tWmwZuSwx4eHh4C7zkeCwHtMmmHr3Cw8PDW+O1A09nW3zbJp4sIh4eHt4eb/LCPzm+atl5msHDw8Nb4/0B+JRUuWODLI0AAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qrcode.png">
+        
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/07/21/受保护的文件系统和伪文件系统/" rel="prev" title="受保护的文件系统和伪文件系统">
+                                    
+                                        受保护的文件系统和伪文件系统
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Android/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Android</a> <a class="tag" href="/tags/文件系统/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>文件系统</a> <a class="tag" href="/tags/读书笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>读书笔记</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'android系统镜像',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+            <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/images/kujira.jpg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:bastijr@gmail.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/bastijr"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=18082136"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Boot-Loader"><span class="toc-text">Boot Loader</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bootloader-镜像"><span class="toc-text">bootloader 镜像</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boot镜像"><span class="toc-text">Boot镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内核"><span class="toc-text">内核</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#arm中的设备树"><span class="toc-text">arm中的设备树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RAM-disk"><span class="toc-text">RAM disk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#system与-data镜像"><span class="toc-text">/system与/data镜像</span></a></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/"
+          
+          
+          id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/"
+          
+            rel="nofollow"
+          
+          
+          id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+        <li><a class="flat-box" title="/about/" href="/about/"
+          
+            rel="nofollow"
+          
+          
+          id="about">
+          
+            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+          
+          关于小站
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/categories/"
+    title="categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/ARTS/" href="/categories/ARTS/"><div class='name'>ARTS</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/安卓架构大剖析/" href="/categories/安卓架构大剖析/"><div class='name'>安卓架构大剖析</div><div class='badge'>(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/tags/"
+    title="tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Tips/" style="font-size: 19px; color: #777">Tips</a> <a href="/tags/文件系统/" style="font-size: 19px; color: #777">文件系统</a> <a href="/tags/算法/" style="font-size: 19px; color: #777">算法</a> <a href="/tags/读书笔记/" style="font-size: 24px; color: #555">读书笔记</a> <a href="/tags/镜像/" style="font-size: 14px; color: #999">镜像</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+  <section class='widget music'>
+    
+<header class='pure'>
+  <div><i class="fas fa-compact-disc fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;最近在听</div>
+  
+    <a class="rightBtn"
+    
+      rel="external nofollow noopener noreferrer"
+    
+    
+      target="_blank"
+    
+    href="https://music.163.com/#/user/home?id=18082136"
+    title="https://music.163.com/#/user/home?id=18082136">
+    <i class="far fa-heart fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+  <div class="aplayer"
+    data-theme="#1BCDFC"
+    
+    
+    data-mode="circulation"
+    data-server="netease"
+    data-type="playlist"
+    data-id="14897952"
+    data-volume="0.5">
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+
+
+    </div>
+  </section>
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml"
+            class="social fas fa-rss flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="mailto:bastijr@gmail.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/bastijr"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/user/home?id=18082136"
+            class="social fas fa-headphones-alt flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+  <div>
+    Use
+    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
+    as theme
+    
+      , 
+      total visits
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      times
+    
+    . 
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://img.vim-cn.com/6d/a0c9e6f9efad8b731cb7376504bd10d79d2053.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://img.vim-cn.com/6d/a0c9e6f9efad8b731cb7376504bd10d79d2053.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "siq45X1ffilqs9Bn0z91BoGI-gzGzoHsz",
+    appKey: "J6d8keuLrR6lNjGhG3jpyvs5",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
