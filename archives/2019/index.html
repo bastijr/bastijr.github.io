@@ -114,7 +114,7 @@
 			
 				<div class="m_search">
 					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<input type="text" class="input u-search-input" placeholder="Search" />
 						<i class="icon fas fa-search fa-fw"></i>
 					</form>
 				</div>
@@ -227,9 +227,554 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/08/05/init的角色和任务/">
+      init的角色和任务
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://kujirasama.cn" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Mu Yi</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-08-05</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/安卓架构大剖析/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>安卓架构大剖析</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="init的角色和任务"><a href="#init的角色和任务" class="headerlink" title="init的角色和任务"></a>init的角色和任务</h2><p>在桌面linux中，第一个用户态进程为<code>/sbininit</code>，它会读取<code>/etc/inittab</code>文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下<code>CTRL+Alt+Del</code>组合键时该做出何种反应等信息。</p>
+<p>在android中也是用这样的init程序，但android中的init和linux中的init仅仅是名字相同罢了，它们之前的区别如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>配置文件</td>
+<td><code>/etcinittab</code></td>
+<td><code>/init.rc</code>以及它导入的任何文件[通常是<code>init.hardware.rc</code>和<code>init.usb.rc</code>]</td>
+</tr>
+<tr>
+<td>多种配置</td>
+<td>支持：”运行级“的概念（0：系统停机状态； 1：单用户工作状态；2-3： 多用户状态；……）。每个”运行级“都会从<code>/etc/rcrunlevel.d2</code>那里加载脚本</td>
+<td>没有”运行级“的概念，但是通过触发器（trigger）和系统属性提供了配置选项</td>
+</tr>
+<tr>
+<td>watchdog</td>
+<td>支持：用respawn关键字定义过的守护进程会在退出时重启—除非该进程反复崩溃，会在这种情况下，反复崩溃的进程会被挂起几分钟</td>
+<td>支持：服务默认是应该保持活跃的。除非启动它时使用了oneshot参数。服务启动时还可以使用critical参数，这会使系统在该服务无法启动时强制重启</td>
+</tr>
+<tr>
+<td>收容孤儿进程</td>
+<td>支持<code>/sbin/init</code>会调用<code>wait4()</code>系统调用去获取孤儿进程的返回码，避免出现僵尸进程</td>
+<td>支持：<code>/init</code>注册了一个SIGCHLD信号的处理模块，SIGCHLD信号是内核在子进程退出时自动发送的，大多数进程会默默的调用<code>wait(NULL)</code>清理掉已退出的子进程，而不去管他的返回码是什么</td>
+</tr>
+<tr>
+<td>系统属性</td>
+<td>不支持</td>
+<td>支持：<code>/init</code>通过共享一块内存区域的方式，让系统中所有进程都能读取系统属性（通过<code>getopt</code>），并通过一个名为”property_service“的socket让所有权限的进程能够（通过’setopt’）写相关属性</td>
+</tr>
+<tr>
+<td>分配socket</td>
+<td>不支持：linux的init不会向子进程提供socket，这个功能交个inetd的</td>
+<td>支持：<code>/init</code> 会绑定一个UNIX domain socket（从L版开始，是seqpacket socket）提供给子进程，子进程可以通过android_get_control_socker函数获取它</td>
+</tr>
+<tr>
+<td>触发操作</td>
+<td>不支持： linux只支持非常特殊的触发操作，如<code>CTRL+Alt+Del</code>和UPS电源事件，但是不允许任意的触发操作</td>
+<td>支持：<code>/init</code>可以在任何一个系统属性被修改时，执行trigger语句块中的，由任何一个用户预先写好的指令</td>
+</tr>
+<tr>
+<td>处理uevent事件</td>
+<td>不支持：linux依靠的时hotplug守护进程（通常为udevd）</td>
+<td><code>/init</code>也会化身为ueventd，用专门的配置文件来指导其行为</td>
+</tr>
+</tbody></table>
+<p><code>/init</code>是静态链接的可执行文件，在编译时它所依赖的库都已经被合并到这个二进制文件里去了、这样做的目的是为了防止仅仅因为缺少某个库而造成的系统无法正常启动的情况发生。在<code>/init</code>刚被执行时，只有和内核一起打包放在boot分区的RAM disk被mount上来，换句话说，系统中只有<code>/</code>和<code>/sbin</code>。</p>
+<h3 id="系统属性"><a href="#系统属性" class="headerlink" title="系统属性"></a>系统属性</h3><p>android的系统属性提供了一个可以全局访问的配置设置仓库<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="类似于windows注册表的东西，每个属性实际上就是键值对。">[1]</span></a></sup>,它在形式上和MIB数组作为参数调用的<code>sysctl(2)</code>有些类似，只不过是在用户态中，由init实现了。在init的相关源码<code>property_service.c</code>中的代码，会按照下表给出的顺序，从多个文件中加载属性。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/default.prop</code>（PROP_PATH_RAMDISK_DEFAULT）</td>
+<td>初始设置。注意。这个文件是initramfs中的一部分，直接到设备的闪存分区上是找不到的</td>
+</tr>
+<tr>
+<td><code>/system/build.prop</code>（PROP_PATH_SYSTEM_BUILD）</td>
+<td>编译android过程中产生的设置</td>
+</tr>
+<tr>
+<td><code>/system/default.prop</code>（PROP_PATH_SYSTEM_DEFAULT）</td>
+<td>通常是厂商添加的设置</td>
+</tr>
+<tr>
+<td><code>/data/local.prop</code>（PROP_PATH_LOCAL_OVERRIDE）</td>
+<td>如果编译init时使用了ALLOW_LOCAL_PROP_OVERRIDE选项，并且<code>ro.debuggable</code>属性被设置为1，那么就会加载这个文件。这使得开发者可以通过<code>/data</code>分区里push一个文件的方式，修改之前的配置</td>
+</tr>
+<tr>
+<td><code>/data/proper/persist.*</code>（PERSISTENT_PROPERTY_DIR）</td>
+<td>重启后不会丢失的属性（Persistent property），这些属性文件会被加上前缀persist。它们会被分别存放在<code>/data/proper</code>目录中的各个文件里，躲过重启。只要<code>/init.rc</code>脚本中有这条指令，init就会重新加载这些属性</td>
+</tr>
+</tbody></table>
+<p>除了上面中列出的属性文件外，还有另外一个属性文件<code>/factory/factory.prop</code>（PROP_PATH_FACTORY），这个属性文件现在已经不再被支持。</p>
+<p>因为init时系统所有进程的祖先，所以只有它才天生适合实现系统属性的初始化。在它刚开始初始化的时候，init中的代码会调用<code>property_init</code>去安装系统属性。这个函数最终会调用<code>map_prop_area()</code>函数，并打开PROP_FILENAME（这个宏定义指的是<code>/dev/__properties__</code>），然后在关闭这个文件的描述符之前，用<code>mmap(2)</code>系统调用以”读/写“权限把这个文件的内容map到内存里。之后，init又会再次打开这个文件，不过这词用的是O_READONLY，然后再unlink掉它。</p>
+<p>属性文件的只读文件描述符被设为可以被子进程继承。这使得系统中任何一个进程都可以方便的通过<code>mmap(2)</code>映射这个文件描述符的方式访问到系统的属性—尽管只能读。这是一个很巧妙的方法，它让所有可以访问属性的用户共享了这块被称为<code>__system_property_area</code>的物理内存<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="`/dev/__properties__`文件被mmap到内存中后，map了该文件内容的内存区域的起始位置就会被记录到全局变量`__system_property_area`上。
+">[2]</span></a></sup>（它的大小是用宏定义<code>PA_SIZE</code>来表示，这个宏定义的默认值为128KB）。除了init进程，别的进程都无法对<code>__system_property_area</code>进行写操作。下面为华为荣耀平板（JDN-W09）的输出结果。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>init 的内存区域</span><br><span class="line">root@hwjdn:/proc # grep properties /proc/1/maps</span><br><span class="line">7fa045b000-7fa0483000 rw-s 00000000 00:0c 10356                          /dev/__properties__</span><br><span class="line"><span class="meta">#</span>其它进程 的内存区域</span><br><span class="line">root@hwjdn:/proc # grep properties /proc/$$/maps</span><br><span class="line">7fa7991000-7fa79b9000 r--s 00000000 00:0c 10356                          /dev/__properties__</span><br><span class="line">7fa7baf000-7fa7bd7000 r--s 00000000 00:0c 10356                          /dev/__properties__</span><br></pre></td></tr></table></figure>
+
+<p><code>__system_property_area</code>这块内存区域的开头部分是一个很短的头部，其中记录了一个序列号（内部版本号）、一个签名文件（<code>0x504f5250</code>，也是<code>PROP</code>）以及一个版本号。紧接着这个头部的时112字节的被存储在一种混杂使用了单词查找树[Trie树或字典树]和二叉树的数据结构中。这个数据结构在Bionic的<code>system_properties.cpp</code>文件中有相当明晰的文档，如下面代码所示<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="原文中说的是c文件，但实际上下面这段代码是在cpp文件中：[code](https://android.googlesource.com/platform/bionic/+/5a3ab3422d8b8f500eda70edf7b0fff83656603a/libc/bionic/system_properties.cpp)。">[3]</span></a></sup>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Properties are stored in a hybrid trie/binary tree structure.</span></span><br><span class="line"><span class="comment"> * Each property's name is delimited at '.' characters, and the tokens are put</span></span><br><span class="line"><span class="comment"> * into a trie structure.  Siblings at each level of the trie are stored in a</span></span><br><span class="line"><span class="comment"> * binary tree.  For instance, "ro.secure"="1" could be stored as follows:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * +-----+   children    +----+   children    +--------+</span></span><br><span class="line"><span class="comment"> * |     |--------------&gt;| ro |--------------&gt;| secure |</span></span><br><span class="line"><span class="comment"> * +-----+               +----+               +--------+</span></span><br><span class="line"><span class="comment"> *                       /    \                /   |</span></span><br><span class="line"><span class="comment"> *                 left /      \ right   left /    |  prop   +===========+</span></span><br><span class="line"><span class="comment"> *                     v        v            v     +--------&gt;| ro.secure |</span></span><br><span class="line"><span class="comment"> *                  +-----+   +-----+     +-----+            +-----------+</span></span><br><span class="line"><span class="comment"> *                  | net |   | sys |     | com |            |     1     |</span></span><br><span class="line"><span class="comment"> *                  +-----+   +-----+     +-----+            +===========+</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="property-service"><a href="#property-service" class="headerlink" title="property_service"></a>property_service</h4><p>为了能提供写（系统属性）请求的服务，init专门打开了一个专用的UNIX domain socket—<code>/dev/socket/property_service</code>。只要能连上这个socket，任何人都可以对它进行写操作（0666）。这些（通过<code>/dev/socket/property_service</code>这个socket）写入的命令会被直接送给init，init首先回去检查调用者是不是有设置相关属性的权限（这些权限信息在<code>property_perms</code>数组中）。权限的检查方式为判断uid和gid，判断调用者的uid和gid（<code>/dev/socket/property_service</code>这个socket的调用者证书中包含相关信息）是否和数组中的定义相符。如果系统包含有SELinux增强，属性的namespace还会改用安全上下文（security context，定义带<code>/property_contetxts</code>中）提供更好的保护。</p>
+<h4 id="特殊的namespace前缀"><a href="#特殊的namespace前缀" class="headerlink" title="特殊的namespace前缀"></a>特殊的namespace前缀</h4><p>init能够识别出一些特定的前缀，这些前缀表示应该如何处理相关属性。</p>
+<ul>
+<li><strong>persist伪前缀</strong>：这个前缀是为了让这些属性在系统重启后依然生效，这些重启后不会丢失的属性保存在<code>/data/property/</code>目录里的各个文件中，这些文件的拥有者必须要是<code>root:root</code>,且不是链接。</li>
+<li><strong>ro伪前缀</strong>：这个是用来标记只读属性的。不管是操作者还是拥有者，它都能设置且只能设置一次。通常，这些设置在场上提供build文件时就已经设置好了。</li>
+<li><strong>ctl前缀</strong>：这个前缀为了方便控制init中提供的各种服务而设立的，通过设置相关服务的<code>ctl.start</code>或者<code>ctl.stop</code>属性的值，就能很便捷的控制相关的服务。（toolbox中的start和stop工具实际上就是利用这个带ctl前缀的属性来控制zygote、surfacefliger和netd的）。在<code>control_perms</code>数组中记录一个不连续的ACL（Access Control List，访问控制列表），通过uid和gid来指定谁有启动和停止的权利。从Lollipop版本之后，SELinux接管了ACL的访问控制职能。</li>
+</ul>
+<h4 id="属性的访问方法"><a href="#属性的访问方法" class="headerlink" title="属性的访问方法"></a>属性的访问方法</h4><p>在toolbox里提供了两个属性访问的命令行工具<code>getprop</code>和<code>setprop</code>，另外还有属性监听工具<code>watchprops</code>。属性访问的原生api都在<code>system/core/include/cutils/property.h</code>文件中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取指定属性key和value，如果key的值不存在的话，也可以用参数default_value给一个默认值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">property_get</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* key, <span class="keyword">char</span>* value, <span class="keyword">const</span> <span class="keyword">char</span>* default_value)</span></span>;</span><br><span class="line"><span class="comment">// 设定指定属性key的值，这个接口把key和value串在一起，用property_service这个socket发送给init</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">property_set</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *key, <span class="keyword">const</span> <span class="keyword">char</span> *value)</span></span>;</span><br><span class="line"><span class="comment">// 用一个回调函数propfn来一一处理各个属性。只要有一个属性，这个回调函数就会被调用一次。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">property_list</span><span class="params">(<span class="keyword">void</span> (*propfn)(<span class="keyword">const</span> <span class="keyword">char</span> *key, <span class="keyword">const</span> <span class="keyword">char</span> *value, <span class="keyword">void</span> *cookie), <span class="keyword">void</span> *cookie)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>sys/_system_properties.h</code>文件中还定义了一些没有文档支持的接口，其中<code>__system_property_wait_any(unsigned int serial)</code>，它会让调用它的进程进入休眠状态，直到某个属性被修改时被被唤醒，在<code>watchprops</code>工具中就用了这个函数。在框架中，使用接口<code>android.os.SystemProperties</code>类来访问系统属性。</p>
+<h3 id="rc文件"><a href="#rc文件" class="headerlink" title=".rc文件"></a>.rc文件</h3><p>init的主要操作是加载它的配置文件，并依照配置文件执行相应的命令。传统上使用的配置文件有两个：主配置文件<code>/init.rc</code>和与设备相关的配置文件<code>/init.hardware.rc</code>，其中hardware相关的配置应该被替换为从内核参数<code>androidboot.hardware</code>，或从<code>/proc/cpuinfo</code>那里获得的字符串。比如，模拟器中默认使用的这个hardware字段就是<code>goldfish</code>。在实体设备中，系统中直接复制了<code>/init.goldfish.rc</code>文件的情况也不在少数，这可能是因为大部分的设备安装的android系统直接复制了模拟器的文件系统，而忽视了这个细节的缘故。这个设计的主要目的是让所有的android设备都能够共享一个<code>init.rc</code>文件，而与设备紧密相关的特定配置则让厂商写在<code>/init.hardware.rc</code>文件里。但在实际应用中，有时为了省事，也会把一些硬件相关的配置直接加在了<code>/init.rc</code>中。</p>
+<h4 id="trigger、action和service"><a href="#trigger、action和service" class="headerlink" title="trigger、action和service"></a>trigger、action和service</h4><p>.rc文件是由trigger语句块和service语句块构成的。trigger语句块中的命令，会在触发条件被满足时执行；而service语句块中定义的时各个守护进程，init会根据命令启动相关守护进程，也可以根据相关参数修改服务状态。service语句块由关键字service开头，后面跟着服务名及命令行。trigger语句块由关键字<strong>on</strong>定义，后面跟着一个参数（这个参数既可以是预先规定的各个启动阶段boot stage的名称，也可以是一个property关键字，后面跟冒号加”属性名称=属性值“这样的表达式），如果条件被满足，相应的属性值会改成指定的值。在执行指定action或command时，init会分别把属性<code>init.action</code>或<code>init.command</code>的值设置为当前正在执行的动作的名称。预先规定的启动阶段见下表（并不一定每个启动阶段都必须使用）：</p>
+<table>
+<thead>
+<tr>
+<th>启动阶段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>early-init</td>
+<td>初始化的第一个阶段，用于设置SELinux和ODM</td>
+</tr>
+<tr>
+<td>init</td>
+<td>创建文件系统，mount点以及写内核变量</td>
+</tr>
+<tr>
+<td>early-fs</td>
+<td>文件系统准备被mount前需要完成的工作</td>
+</tr>
+<tr>
+<td>fs</td>
+<td>专门用于加载各个分区</td>
+</tr>
+<tr>
+<td>post-fs</td>
+<td>在各个文件系统（<code>/data</code>分区除外）mount完毕后需要执行的命令</td>
+</tr>
+<tr>
+<td>post-fs-data</td>
+<td>解密<code>/data</code>分区（可选），并mount之</td>
+</tr>
+<tr>
+<td>early-boot</td>
+<td>在属性服务（property service）初始化之后，启动剩余内容之前需完成的作业</td>
+</tr>
+<tr>
+<td>boot</td>
+<td>正常启动命令</td>
+</tr>
+<tr>
+<td>charger</td>
+<td>当手机处于充电模式时需要执行的命令</td>
+</tr>
+</tbody></table>
+<h4 id="init-rc的语法和命令集"><a href="#init-rc的语法和命令集" class="headerlink" title="init.rc的语法和命令集"></a>init.rc的语法和命令集</h4><p><code>init.rc</code>及其导入的文件都有非常好的注释。<code>init_parser.c</code>中的代码在解析rc文件时，能否识别出<code>COMMAND</code>（值在<em>on</em>关键字开头的语句块中有效）和<code>OPTION</code>（只在<em>service</em>关键字开头的语句块中有效）。下表列出了init所支持的各个<code>COMMAND</code>关键字（<code>keywords.h</code>）。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>语法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bootchart_init</td>
+<td>启用启动时的信任链验证</td>
+</tr>
+<tr>
+<td>chdir <em>dir</em></td>
+<td>等价于cd命令</td>
+</tr>
+<tr>
+<td>chmod <em>actal_perms file</em></td>
+<td>修改制定文件的权限</td>
+</tr>
+<tr>
+<td>chown <em>user group file</em></td>
+<td>等价于chown <em>user:group file</em>命令</td>
+</tr>
+<tr>
+<td>Chroot <em>dir</em></td>
+<td>等价于chroot</td>
+</tr>
+<tr>
+<td>class_reset service_calss</td>
+<td>停止与service_class相关的所有服务</td>
+</tr>
+<tr>
+<td>class_[start|stop] <em>class</em></td>
+<td>启动或者定制class参数制定的service_class相关的所有服务</td>
+</tr>
+<tr>
+<td>copy <em>src dst</em></td>
+<td>类似于cp命令</td>
+</tr>
+<tr>
+<td>domainname domainname</td>
+<td>把制定的域名写入<code>/prco/sys/kernel/domainname</code>伪文件中</td>
+</tr>
+<tr>
+<td>exec <em>command</em></td>
+<td>不再支持</td>
+</tr>
+<tr>
+<td>enable <em>service</em></td>
+<td>启动一个被disable的服务</td>
+</tr>
+<tr>
+<td>export <em>variable value</em></td>
+<td>全局环境中，设置环境变量<em>variable</em>的值，该命令的执行结果会影响所用到的所有进程</td>
+</tr>
+<tr>
+<td>hostname <em>hostname</em></td>
+<td>把主机名写入<code>/proc/sys/kernel/hostname</code>伪文件中</td>
+</tr>
+<tr>
+<td>ifup <em>interface</em></td>
+<td>激活指定的网卡</td>
+</tr>
+<tr>
+<td>insmod <em>ko</em></td>
+<td>加载一个内核模块</td>
+</tr>
+<tr>
+<td>import <em>filename.rc</em></td>
+<td>导入另一个rc文件</td>
+</tr>
+<tr>
+<td>load_all_props</td>
+<td>加载build,default,factory文件中规定的属性</td>
+</tr>
+<tr>
+<td>load_persist_props</td>
+<td>加载<code>/data/propert</code>目录中的各个文件中的属性</td>
+</tr>
+<tr>
+<td>loglevel <em>level</em></td>
+<td>设置内核的日志级别</td>
+</tr>
+<tr>
+<td>mkdir <em>dir</em></td>
+<td>创建一个目录</td>
+</tr>
+<tr>
+<td>mount <em>fstype fs point</em></td>
+<td>把指定分区类型（<em>fstype</em>）的分区（<em>fs</em>）mount到指定的mount点（<em>point</em>）上去</td>
+</tr>
+<tr>
+<td>mount_all</td>
+<td>mount所有在<code>vold</code>守护进程使用的<code>/fstab.hardware</code>中规定的文件系统，这会使init <code>fork()</code>出一个子进程，并在这个子进程中用fs_mgr执行mount操作。init同时也能检测出所有加密的文件系统</td>
+</tr>
+<tr>
+<td>powerctl shoutdown/reboot</td>
+<td>对shutdown和reboot的封装</td>
+</tr>
+<tr>
+<td>[re]start <em>service_name</em></td>
+<td>启动/重启服务名与参数<em>service_name</em>相同的service语句块中规定的服务</td>
+</tr>
+<tr>
+<td>restorecon[_recursive] path</td>
+<td>用path参数指定的文件重新加载SELinux上下文</td>
+</tr>
+<tr>
+<td>rm[dir] <em>filename</em></td>
+<td>删除文件或目录</td>
+</tr>
+<tr>
+<td>setcon SEcontext</td>
+<td>设置或改变SELinux的上下文，init使用的上下文是<code>u:r:init:s0</code></td>
+</tr>
+<tr>
+<td>setenforce [0|1]</td>
+<td>强制启动或者关闭SELinux</td>
+</tr>
+<tr>
+<td>setkey <em>table index value</em></td>
+<td>设置键盘映射表的内容</td>
+</tr>
+<tr>
+<td>setprop <em>key value</em></td>
+<td>设置指定的系统属性</td>
+</tr>
+<tr>
+<td>setsebool <em>name value</em></td>
+<td>设置某个与SELinux相关的bool型属性</td>
+</tr>
+<tr>
+<td>setlimit <em>category min max</em></td>
+<td>使用<code>setlimit(2)</code>系统调用，设置进程可用资源的上下限</td>
+</tr>
+<tr>
+<td>stop <em>service_name</em></td>
+<td>停止服务名与参数<em>service_name</em>相同的service语句块中规定的服务</td>
+</tr>
+<tr>
+<td>swapon all</td>
+<td>激活所有fstab中的swap分区</td>
+</tr>
+<tr>
+<td>symlink <em>target src</em></td>
+<td>创建一个符号链接</td>
+</tr>
+<tr>
+<td>sysclktz <em>tzoffset</em></td>
+<td>设置系统时区</td>
+</tr>
+<tr>
+<td>verity_load_state</td>
+<td>加载DM-verity（分区加密）状态</td>
+</tr>
+<tr>
+<td>verity_update_state <em>mount</em></td>
+<td>更新DM-verity状态，并设置系统属性<code>partition.mount.verified</code></td>
+</tr>
+<tr>
+<td>wait <em>file timeout</em></td>
+<td>等待文件<em>file<em>创建完，等待最大时间不超过</em>timeout</em></td>
+</tr>
+<tr>
+<td>write <em>file value</em></td>
+<td>把<em>value</em>写入到文件<em>file</em>中去</td>
+</tr>
+</tbody></table>
+<p><code>COMMAND</code>关键字指令会被用在各个启动阶段中，去执行在系统启动时所需要的操作，如设置目录结构、调整权限、通过<code>/proc</code>或<code>/sys</code>设置相关的内核参数。启动阶段所要执行的指令处理完成后，就需要处理服务相关的指令，按照规定，service语句块中使用的命令必须是用<code>OPTION</code>关键字指令，这些指令确定了该如何运行服务，以及相关服务退出/崩溃时需要进行的操作。下表列出了各个可用的<code>OPTION</code>关键字。</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>capability</td>
+<td>支持Linux的<code>capability(7)</code></td>
+</tr>
+<tr>
+<td>class</td>
+<td>把服务加入某个服务组，可以用class_[start|stop|reset]命令同时操作组内的服务</td>
+</tr>
+<tr>
+<td>console</td>
+<td>把该服务定义为一个console服务，<code>stdin/stdout/stderr</code>会被link到<code>/dev/console</code>上</td>
+</tr>
+<tr>
+<td>critical</td>
+<td>把该服务定义为一个关键服务，关键服务崩溃后会自动重启。如果在<code>CRITICAL_CRASH_WINDOW(240)</code>秒之内，它的崩溃次数超过了<code>CRITICAL_CRASH_THRESHOLD(4)</code>次，系统将会进入recovery模式</td>
+</tr>
+<tr>
+<td>disable</td>
+<td>表示该服务不需要启动，但可以手动启动</td>
+</tr>
+<tr>
+<td>group</td>
+<td>规定该服务以指定的gid启动。init会调用<code>setgid(2)</code>来完成这一操作</td>
+</tr>
+<tr>
+<td>ioprio</td>
+<td>指定该服务的I/O优先级，init会调用<code>ioprio_set</code>来完成</td>
+</tr>
+<tr>
+<td>keycodes</td>
+<td>指定触发该服务的组合键</td>
+</tr>
+<tr>
+<td>oneshot</td>
+<td>让init启动该服务后就不在管它了（忽略<code>SIGCHLD</code>信号）</td>
+</tr>
+<tr>
+<td>onrestart</td>
+<td>列出该服务重启时要执行的命令，通常用来重启其它依赖服务</td>
+</tr>
+<tr>
+<td>seclabel</td>
+<td>指定应用在该服务上的SELinux标签</td>
+</tr>
+<tr>
+<td>setenv</td>
+<td>该服务被<code>fork()</code>出来并被<code>exec()</code>之前，先给它设置一个环境变量。这个变量只对该服务有效</td>
+</tr>
+<tr>
+<td>socket</td>
+<td>告诉init打开一个UNIX Domain socket，并让该服务集成这个socket，这样做的目的是解决服务的<code>stdin/stdout</code>的设置问题</td>
+</tr>
+<tr>
+<td>user</td>
+<td>指定该服务以指定的uid运行，init将调用<code>setuid(2)</code>完成这个任务</td>
+</tr>
+<tr>
+<td>writepid</td>
+<td>把子进程的PID写到指定的文件中去，用于设置cgroup资源控制</td>
+</tr>
+</tbody></table>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><p>android中的init还是用pid=1进程的传统方式启动服务的，即它<code>fork()</code>出服务子进程，然后调用<code>setuid(2)</code>/<code>setpid(2)</code>设置服务子进程的权限，并设置该服务子进程用来捕获输入的socket及配置环境变量、I/O优先级（在服务块语句中使用ioprio关键字）和SELinux上下文。对于使用console关键字定义的服务，init会把<code>/dev/console</code>连到它的<code>stdin/stdout/stderr</code>上，而对其他服务，它会把stdio给干掉。只有当这些操作都执行完毕后，init才会去执行服务本身的二进制可执行文件。</p>
+<p>在服务启动之后，init会维持一个指向该服务的父链接（parental link），一旦服务停止运行或者崩溃，init就会收到一个<code>SIGCHLD</code>信号，并注意这一事件，然后重启该服务。onrestart关键字会使init在各个指定的服务之间建立起关联，当特定的服务需要重启时，init会去运行这个使用了onrestart关键字的service语句块中的命令，或者重启与该服务有依赖关系的服务。对于每一个服务，init还会维持一个反映了该服务当前运行状态的属性<code>init.svc.service</code>。</p>
+<h4 id="组合键"><a href="#组合键" class="headerlink" title="组合键"></a>组合键</h4><p>init能够在用户按下某个组合键（keychords）是启动某些服务。每个键都有指定的ID（来自Linux的evdev输入机制）。写在keycodes关键字后面的，是android键盘布局文件（<code>/system/usr/keylayout</code>）中规定的键位代码，而不是android框架规定和使用的键位代码（<code>frameworks/native/include/android/keycodes.h</code>）。</p>
+<p>要支持组合键，<code>/dev/keychord</code>文件是必须存在的。这个文件是由一个keychord内核驱动导出的设备节点。</p>
+<h4 id="mount文件系统"><a href="#mount文件系统" class="headerlink" title="mount文件系统"></a>mount文件系统</h4><p>尽管有vold，但init仍然需要执行一些mount操作。在init刚刚启动时，只有root文件系统被mount上来，此时<code>/system</code>和<code>/data</code>都没有被mount，且vold等守护进程都在<code>/system</code>中，所以需要init进程至少把<code>/system</code>mount上来。</p>
+<p>init能够认出<code>/init.rc</code>中的mount_all指令，并执行mount所有默认文件系统（<code>/fstab.hardware</code>文件中）的操作。执行mount操作的代码位于fs_mgr中，无论<code>/init</code>还是vold都会使用它。当<code>/init</code>执行mount操作时，它首先会<code>fork()</code>一个子进程执行相关操作，这是为了避免在执行mount时出现问题而影响自己的启动活动。</p>
+<p>被<code>fork()</code>出来的子进程会去执行mount操作，如果有需要，还会对文件系统进行fsck操作。fs_mgr中规定了对各种不同的文件系统执行fsck操作的程序的所在路径，而且这个fsck操作也是由再次<code>fork()</code>出来的子进程来完成。fs_mgr中会提升日志级别，所以，使用<code>dmesg</code>能够看到fs_mgr输出的各种消息。如果时机足够早的话，是可以看到fs_mgr特有标记的消息。</p>
+<p><code>fork()</code>出来的mount操作子进程会向父进程返回一个返回码。<code>/init</code>会根据这个返回码设置属性<code>vold.decrypt</code>的值，这个属性会被vold读取，并对相应的文件系统进行解密操作。如果没有任何文件系统被加密，init就会执行名为”nonencrypted”的trigger语句块中的指令。</p>
+<h3 id="init总结"><a href="#init总结" class="headerlink" title="init总结"></a>init总结</h3><p>init进程完全遵循建立服务的经典模式：初始化，然后陷入一个循环中，而且永远不想从中退出来。</p>
+<h4 id="初始化流程"><a href="#初始化流程" class="headerlink" title="初始化流程"></a>初始化流程</h4><p>init进程初始化工作由以下步骤组成：</p>
+<ul>
+<li><p>检查自身是否被当成ueventd或watchdogd调用的，如果是，则余下的执行流程会转到相应的守护进程的主循环那里去。</p>
+</li>
+<li><p>创建<code>/dev</code>、<code>/proc</code>、<code>/sys</code>等目录，并mount它们。</p>
+</li>
+<li><p>添加文件<code>/dev/.booting</code>，在启动完毕后，这个文件会被（check_startup）清空。</p>
+</li>
+<li><p>调用<code>open_devnull_stdio()</code>函数完成“守护进程化”操作（把<code>stdin/stdout/stderr</code>链接到<code>/dev/null</code>中）</p>
+</li>
+<li><p>调用<code>klog_init()</code>函数创建<code>/dev/__kmsg__</code>（Major 1， Minor 11），然后立即删除它。</p>
+</li>
+<li><p>调用<code>property_init()</code>函数，在内存创建<code>__system_property_area</code>区域。</p>
+</li>
+<li><p>调用<code>get_hard_name()</code>函数，读取<code>/proc/cpuinfo</code>伪文件中的内容，并提取出“Hardware”一行的内容作为硬件名。以这种方式获取硬件名。</p>
+</li>
+<li><p>调用<code>process_kernel_cmdline()</code>函数，读取<code>/proc/cmdline</code>伪文件中的内容，并把所有<code>androidboot.XXX</code>的属性都复制一份出来，变成r<code>ro.boot.XXX</code>。</p>
+</li>
+<li><p>初始化SELinux。SELinux是放在<code>/dev</code>和<code>/sys</code>里面的。</p>
+</li>
+<li><p>检查设备是否处在“充电模式”。如果设备处于“充电模式”，会使init跳过大部分初始化阶段，并且只加载各个服务中的“charger”类（当前只有“charger”守护进程有这个类）。如果设备没有处于“充电模式”，那么init将会去加载<code>/default.prop</code>，正常执行启动过程。</p>
+</li>
+<li><p>调用<code>init_parse_config_file()</code>函数去解析<code>/init.rc</code>脚本文件。</p>
+</li>
+<li><p>init会把<code>init.rc</code>文件中各个<strong>on</strong>语句块里规定的action（<code>action_for_each_trigger()</code>函数）以及内置的action（<code>queue_builtin_action()</code>函数）添加一个名为<code>action_queue</code>的队列里去。</p>
+</li>
+<li><p>最后，主循环中将逐个执行<code>init.rc</code>中的所有命令</p>
+<p>init将在它的生命周期中的大多数时间里处于休眠状态，偶尔轮询各个文件描述符，并根据宏<code>BOOTCHART</code>有没有被定义，来判断是否需要将日志发送到bootchart，只有在必要的时候init进程才会被唤醒。我们可以通过查看<code>/proc</code>伪文件系统，来了解init进程打开了哪些文件描述符。</p>
+</li>
+</ul>
+<h4 id="主循环"><a href="#主循环" class="headerlink" title="主循环"></a>主循环</h4><p>init的主循环相当简洁，一共由三个步骤组成：</p>
+<ul>
+<li><p><code>execute_one_command()</code>：从队列action_queue的头部取出一个action并执行。</p>
+</li>
+<li><p><code>restart_processes()</code>：逐个检查所有已经注册过的服务，并在必要时重启。</p>
+</li>
+<li><p>安装并轮询如下三个socket描述符。</p>
+<ul>
+<li><p><code>property_set_id</code>（<code>/dev/socket/property_service</code>），这个socket是用来让想要设置某个属性的客户端进程，通过它把需要设置的属性的key和value发送给init。init会根据对端进程的证书，来判断这个进程是否有权限进行属性设置。</p>
+</li>
+<li><p><code>keychord_fd</code>（<code>/dev/keychord</code>），它是用来处理上文讨论过的启动服务的组合键。</p>
+</li>
+<li><p><code>signal_recv_fs</code>它是socketpair中的一端，创建它是为了处理因子进程死亡而发来的<code>SIGCHLD</code>信号。当init收到这个信号后，<code>sigchld_hander</code>就会向<code>socketpair(signal_fd)</code>写入数据，这样在这个sockerpair的接受端就能收到这些数据，并导致init去调用<code>wait_for_one_process(0)</code>。这样就能获得已死亡的子进程的返回码，以便去释放该进程残留的资源，防止它成为僵尸进程，然后init会清理这个socketpair中的数据，等待下一个进程挂掉。如果挂掉的进程是critical服务的守护进程的话，init也会重启这个进程。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>除了上述init监听的三个文件以外，<code>/init</code>是不会再其它任何地方接受输入的。唯一能够修改<code>/init</code>操作行为的方法就是编辑<code>/init.rc</code>，但这个文件位于一个完全隔离的分区，和内核放在一起，除非设备的Boot Loader被解锁，否则无法进行修改。</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">类似于windows注册表的东西，每个属性实际上就是键值对。<a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><code>/dev/__properties__</code>文件被mmap到内存中后，map了该文件内容的内存区域的起始位置就会被记录到全局变量<code>__system_property_area</code>上。<a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">原文中说的是c文件，但实际上下面这段代码是在cpp文件中：<a href="https://android.googlesource.com/platform/bionic/+/5a3ab3422d8b8f500eda70edf7b0fff83656603a/libc/bionic/system_properties.cpp" target="_blank" rel="noopener">code</a>。<a href="#fnref:3" rev="footnote"> ↩</a></span></li></ol></div></div>
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/Android/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Android</a>
+        
+          <a href="/tags/读书笔记/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>读书笔记</a>
+        
+          <a href="/tags/init/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>init</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -317,7 +862,7 @@
         <div class="readmore">
           <a href="/2019/08/04/ARTS-3/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
+            Read More
           </a>
         </div>
       
@@ -429,7 +974,7 @@
         <div class="readmore">
           <a href="/2019/07/21/android系统镜像/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
+            Read More
           </a>
         </div>
       
@@ -537,7 +1082,7 @@
         <div class="readmore">
           <a href="/2019/07/21/受保护的文件系统和伪文件系统/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
+            Read More
           </a>
         </div>
       
@@ -645,7 +1190,7 @@
         <div class="readmore">
           <a href="/2019/07/21/android文件系统中存储的内容/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
+            Read More
           </a>
         </div>
       
@@ -753,7 +1298,7 @@
         <div class="readmore">
           <a href="/2019/07/17/ARTS-2/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
+            Read More
           </a>
         </div>
       
@@ -859,7 +1404,7 @@
         <div class="readmore">
           <a href="/2019/07/16/ARTS是什么/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
+            Read More
           </a>
         </div>
       
@@ -1020,7 +1565,7 @@
   <section class='widget category'>
     
 <header class='pure'>
-  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
   
     <a class="rightBtn"
     
@@ -1038,7 +1583,7 @@
         
           <li><a class="flat-box" title="/categories/ARTS/" href="/categories/ARTS/"><div class='name'>ARTS</div><div class='badge'>(3)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/安卓架构大剖析/" href="/categories/安卓架构大剖析/"><div class='name'>安卓架构大剖析</div><div class='badge'>(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/安卓架构大剖析/" href="/categories/安卓架构大剖析/"><div class='name'>安卓架构大剖析</div><div class='badge'>(4)</div></a></li>
         
       </ul>
     </div>
@@ -1055,7 +1600,7 @@
   <section class='widget tagcloud'>
     
 <header class='pure'>
-  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
   
     <a class="rightBtn"
     
@@ -1069,7 +1614,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Tips/" style="font-size: 24px; color: #555">Tips</a> <a href="/tags/文件系统/" style="font-size: 19px; color: #777">文件系统</a> <a href="/tags/算法/" style="font-size: 24px; color: #555">算法</a> <a href="/tags/读书笔记/" style="font-size: 24px; color: #555">读书笔记</a> <a href="/tags/镜像/" style="font-size: 14px; color: #999">镜像</a>
+      <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Tips/" style="font-size: 20.67px; color: #6c6c6c">Tips</a> <a href="/tags/init/" style="font-size: 14px; color: #999">init</a> <a href="/tags/文件系统/" style="font-size: 17.33px; color: #828282">文件系统</a> <a href="/tags/算法/" style="font-size: 20.67px; color: #6c6c6c">算法</a> <a href="/tags/读书笔记/" style="font-size: 24px; color: #555">读书笔记</a> <a href="/tags/镜像/" style="font-size: 14px; color: #999">镜像</a>
     </div>
   </section>
 
@@ -1170,19 +1715,19 @@
     </div>
   
   <br>
-  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+  <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
   <div>
-    本站使用
+    Use
     <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
-    作为主题
+    as theme
     
-      ，
-      总访问量为
+      , 
+      total visits
       <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
-      次
+      times
     
-    。
+    . 
   </div>
 </footer>
 <script>setLoadingBarProgress(80);</script>
@@ -1296,15 +1841,15 @@
 <!-- 复制 -->
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 <script>
-  let COPY_SUCCESS = "复制成功";
-  let COPY_FAILURE = "复制失败";
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) {
     /* code */
     var initCopyCode = function(){
       var copyHtml = '';
       copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
       var clipboard = new ClipboardJS('.btn-copy', {
