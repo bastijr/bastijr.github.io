@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Tag: 算法 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些</title>
+  <title>ARTS-3 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些</title>
   
   
   <meta name="description" content="什么都略懂一点，生活更多彩一些">
@@ -208,29 +208,12 @@
 
   <div class="l_body nocover">
     <div class='body-wrapper'>
-      
-<div class='l_main'>
+      <div class='l_main'>
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
+
   
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -239,11 +222,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/08/04/ARTS-3/">
-      ARTS-3
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2019/08/04/ARTS-3/">
+        ARTS-3
+      </a>
+    </h1>
+  
 
 
       
@@ -290,6 +275,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -306,258 +304,191 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h1 id="Week-3"><a href="#Week-3" class="headerlink" title="Week 3"></a>Week 3</h1>
-      
-        <div class="readmore">
-          <a href="/2019/08/04/ARTS-3/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h1 id="Week-3"><a href="#Week-3" class="headerlink" title="Week 3"></a>Week 3</h1><a id="more"></a>
+
+<h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><blockquote>
+<p>给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。</p>
+<p>示例 1:</p>
+<p>输入: 123<br>输出: 321<br> 示例 2:</p>
+<p>输入: -123<br>输出: -321<br>示例 3:</p>
+<p>输入: 120<br>输出: 21<br>注意:</p>
+<p>假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/reverse-integer" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-integer</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverse</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> flag <span class="keyword">bool</span> = <span class="literal">false</span></span><br><span class="line">	<span class="keyword">var</span> res <span class="keyword">int</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">0</span> || x &lt; <span class="number">-2147483648</span> || x &gt; <span class="number">2147483647</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span> x &lt; <span class="number">0</span> &#123;</span><br><span class="line">		flag = <span class="literal">true</span></span><br><span class="line">		x = -x</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> ;x != <span class="number">0</span>; &#123;</span><br><span class="line">		res = res*<span class="number">10</span> + x%<span class="number">10</span></span><br><span class="line">		x = x/<span class="number">10</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> flag == <span class="literal">true</span> &#123;</span><br><span class="line">		res = -res</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> res &lt; <span class="number">-2147483648</span> || res &gt; <span class="number">2147483647</span> &#123;</span><br><span class="line">		res = <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h1><p><a href="https://elinux.org/Android_Build_System" target="_blank" rel="noopener">Android Build System</a></p>
+<p>安卓构建系统使用一些预设的环境变量和一系列<code>make</code>文件来构建Android系统，并为部署到平台做好准备。Android make文件按照惯例以扩展名‘.mk’结尾，任何特定源目录中的主make文件都被命名为<code>Android.mk</code>。安卓构建系统中只存在唯一一个<code>Makefile</code>，位于整个存储库的源树的顶部。开发者可以自行设置一些环境变量，然后输入<code>make</code>来构建东西。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p><a href="https://github.com/hakuna-m/wubiuefi/releases" target="_blank" rel="noopener">免分区面U盘安装ubuntu</a></p>
+<p>wubi原来时ubuntu官方提供的从windows安装ubuntu的工具，在12年左右就停止了官方支持。不过在github上有人提供了对新版本支持的非官方wubi（已经支持19.04），如果想保留双系统且又不想分区，可以考虑用这个非官方的wubi软件来安装ubutnu的最新发行版。</p>
+<h1 id="Share"><a href="#Share" class="headerlink" title="Share"></a>Share</h1><p><a href="https://coolshell.cn/articles/9070.html" target="_blank" rel="noopener">AWK 简明教程</a><br>AWK是一款经典的文件二次处理的神器，用好了对工作效率的提高有很大的帮助。</p>
+
         </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/算法/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>算法</a>
-        
-          <a href="/tags/Tips/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Tips</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/07/17/ARTS-2/">
-      ARTS Week 2
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
         
           
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://kujirasama.cn" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Mu Yi</p>
-    </a>
-  </div>
 
 
-          
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-04T16:30:25+08:00">
   <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-07-17</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 Aug 4, 2019</p>
   </a>
 </div>
 
-          
+        
+      
         
           
-            
   
-  <div class='new-meta-item category'>
-    <a href='/categories/ARTS/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>ARTS</p>
-    </a>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/算法/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>算法</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Tips/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Tips</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://kujirasama.cn/2019/08/04/ARTS-3/&title=ARTS-3 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=Week 3"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kujirasama.cn/2019/08/04/ARTS-3/&title=ARTS-3 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=Week 3"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACG0lEQVR42u3aQW7DMAwEwP7/0+41QBtjV3QLRBqdgsSJPD4wFMmvr3hdL+vdOz/f//np/TX333pgYWBgfCzjul3317x++u6X21tP9v1lRwwMjAMYyU0kYTHh3e/ePiAMDAyMhJEHzbVAj4GBgfEUIwmXLRgDAwNjLfDlm90D8uPxw2dxDAyMD2TkVff/f/0n/Q0MDIyPYlzlyhO+Nlxeg4WBgbE3Y5LYFcfLcsxiMdHEwMDYlNGOdiVBMzmargVuDAwMjLVi2Xzka9LOxMDAOIeR16/mR9PJkFkxWYaBgbEdo20Q5ing2mG1TSgxMDD2ZrTjX5P2Z3v0zRNTDAyMcxjtZms3ne9YJ44YGBgHMPJWZdvInJTzCh4GBsamjElBf5LGtQ+r/sfAwMDYlJEU4NbKcPloRTtsgYGBcQ4jaRzmNzQfyKgfEwYGxgGMSYqWh9d24KPYEQMD4zDGpA25NnLR8n55WBgYGFszknRwMirRAvISXjQchoGBsRFj0hhoi/hre0X7YmBgHMxoy2RPgYvGAAYGxjGM/OfytsHaWGpdbsPAwNiacZWrpd4H6zzcR+dvDAyMTRmjOB0nf+2trB1oMTAw9mbMQ+T8MJy3SzEwME5mtIGvTQ2fSvveIjEwMDCCQ+x8hGJUksPAwMCIy/1/UTKLGqgYGBgHMCajFfnIRZ5Q1kEcAwNja8Za3rWW8LXX5CEeAwNjU8Y3dGnbGbdrdMIAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
+        
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://kujirasama.cn/2019/08/04/ARTS-3/&title=ARTS-3 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=Week 3"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+      
+        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACG0lEQVR42u3aQW7DMAwEwP7/0+41QBtjV3QLRBqdgsSJPD4wFMmvr3hdL+vdOz/f//np/TX333pgYWBgfCzjul3317x++u6X21tP9v1lRwwMjAMYyU0kYTHh3e/ePiAMDAyMhJEHzbVAj4GBgfEUIwmXLRgDAwNjLfDlm90D8uPxw2dxDAyMD2TkVff/f/0n/Q0MDIyPYlzlyhO+Nlxeg4WBgbE3Y5LYFcfLcsxiMdHEwMDYlNGOdiVBMzmargVuDAwMjLVi2Xzka9LOxMDAOIeR16/mR9PJkFkxWYaBgbEdo20Q5ing2mG1TSgxMDD2ZrTjX5P2Z3v0zRNTDAyMcxjtZms3ne9YJ44YGBgHMPJWZdvInJTzCh4GBsamjElBf5LGtQ+r/sfAwMDYlJEU4NbKcPloRTtsgYGBcQ4jaRzmNzQfyKgfEwYGxgGMSYqWh9d24KPYEQMD4zDGpA25NnLR8n55WBgYGFszknRwMirRAvISXjQchoGBsRFj0hhoi/hre0X7YmBgHMxoy2RPgYvGAAYGxjGM/OfytsHaWGpdbsPAwNiacZWrpd4H6zzcR+dvDAyMTRmjOB0nf+2trB1oMTAw9mbMQ+T8MJy3SzEwME5mtIGvTQ2fSvveIjEwMDCCQ+x8hGJUksPAwMCIy/1/UTKLGqgYGBgHMCajFfnIRZ5Q1kEcAwNja8Za3rWW8LXX5CEeAwNjU8Y3dGnbGbdrdMIAAAAASUVORK5CYII='>
+        
+          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qrcode.png">
+        
+        </a>
+      
+    
   </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h1 id="Week-2"><a href="#Week-2" class="headerlink" title="Week 2"></a>Week 2</h1>
-      
-        <div class="readmore">
-          <a href="/2019/07/17/ARTS-2/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/算法/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>算法</a>
-        
-          <a href="/tags/Tips/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Tips</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/07/16/ARTS是什么/">
-      ARTS是什么
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://kujirasama.cn" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Mu Yi</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-07-16</p>
-  </a>
 </div>
 
-          
+
+
         
-          
-            
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/07/21/android系统镜像/" rel="prev" title="android系统镜像">
+                                    
+                                        android系统镜像
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Android/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Android</a> <a class="tag" href="/tags/读书笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>读书笔记</a> <a class="tag" href="/tags/镜像/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>镜像</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
   
-  <div class='new-meta-item category'>
-    <a href='/categories/ARTS/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>ARTS</p>
-    </a>
-  </div>
+
+  
+    <!-- 显示推荐文章和评论 -->
 
 
-          
-        
-          
-            
 
-          
-        
-          
-            
-
-          
-        
-      </div>
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
       
-        <hr>
       
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><p>主要是为了编程训练和学习。每周至少做一个 leetcode 的算法题（先从Easy开始，然后再Medium，最后才Hard）。进行编程训练，如果不训练你看再多的算法书，你依然不会做算法题，看完书后，你需要训练。关于做Leetcode的的优势，你可以看一下我在coolshell上的文章：<a href="https://coolshell.cn/articles/12052.html" target="_blank" rel="noopener">LEETCODE 编程训练</a>。</p>
       
-        <div class="readmore">
-          <a href="/2019/07/16/ARTS是什么/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
       
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/算法/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>算法</a>
-        
-          <a href="/tags/Tips/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Tips</a>
-        
-      </div>
-    
-  </section>
-</article>
-
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
           </div>
-        
+        </section>
       
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
+    </section>
+  </article>
+
 
   
 
 
-    
-  
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'ARTS-3',
+      tools: true
+    }
+  </script>
+
+
 </div>
 <aside class='l_side'>
   
@@ -622,6 +553,20 @@
           
           
             
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Week-3"><span class="toc-text">Week 3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Algorithm"><span class="toc-text">Algorithm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Review"><span class="toc-text">Review</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tips"><span class="toc-text">Tips</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Share"><span class="toc-text">Share</span></a></li></ol>
+    </div>
+  </section>
+
 
           
         
@@ -941,6 +886,36 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "siq45X1ffilqs9Bn0z91BoGI-gzGzoHsz",
+    appKey: "J6d8keuLrR6lNjGhG3jpyvs5",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
 
 
 

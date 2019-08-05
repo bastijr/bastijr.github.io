@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kujirasama.cn/"/>
-  <updated>2019-07-21T14:44:27.903Z</updated>
+  <updated>2019-08-04T08:30:25.873Z</updated>
   <id>https://kujirasama.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ARTS-3</title>
+    <link href="https://kujirasama.cn/2019/08/04/ARTS-3/"/>
+    <id>https://kujirasama.cn/2019/08/04/ARTS-3/</id>
+    <published>2019-08-04T08:30:25.000Z</published>
+    <updated>2019-08-04T08:30:25.873Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Week-3"><a href="#Week-3" class="headerlink" title="Week 3"></a>Week 3</h1><a id="more"></a><h1 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h1><blockquote><p>给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。</p><p>示例 1:</p><p>输入: 123<br>输出: 321<br> 示例 2:</p><p>输入: -123<br>输出: -321<br>示例 3:</p><p>输入: 120<br>输出: 21<br>注意:</p><p>假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/reverse-integer" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-integer</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p></blockquote><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverse</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line"><span class="keyword">var</span> flag <span class="keyword">bool</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">var</span> res <span class="keyword">int</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">0</span> || x &lt; <span class="number">-2147483648</span> || x &gt; <span class="number">2147483647</span> &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> x &lt; <span class="number">0</span> &#123;</span><br><span class="line">flag = <span class="literal">true</span></span><br><span class="line">x = -x</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> ;x != <span class="number">0</span>; &#123;</span><br><span class="line">res = res*<span class="number">10</span> + x%<span class="number">10</span></span><br><span class="line">x = x/<span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> flag == <span class="literal">true</span> &#123;</span><br><span class="line">res = -res</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> res &lt; <span class="number">-2147483648</span> || res &gt; <span class="number">2147483647</span> &#123;</span><br><span class="line">res = <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h1><p><a href="https://elinux.org/Android_Build_System" target="_blank" rel="noopener">Android Build System</a></p><p>安卓构建系统使用一些预设的环境变量和一系列<code>make</code>文件来构建Android系统，并为部署到平台做好准备。Android make文件按照惯例以扩展名‘.mk’结尾，任何特定源目录中的主make文件都被命名为<code>Android.mk</code>。安卓构建系统中只存在唯一一个<code>Makefile</code>，位于整个存储库的源树的顶部。开发者可以自行设置一些环境变量，然后输入<code>make</code>来构建东西。</p><h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p><a href="https://github.com/hakuna-m/wubiuefi/releases" target="_blank" rel="noopener">免分区面U盘安装ubuntu</a></p><p>wubi原来时ubuntu官方提供的从windows安装ubuntu的工具，在12年左右就停止了官方支持。不过在github上有人提供了对新版本支持的非官方wubi（已经支持19.04），如果想保留双系统且又不想分区，可以考虑用这个非官方的wubi软件来安装ubutnu的最新发行版。</p><h1 id="Share"><a href="#Share" class="headerlink" title="Share"></a>Share</h1><p><a href="https://coolshell.cn/articles/9070.html" target="_blank" rel="noopener">AWK 简明教程</a><br>AWK是一款经典的文件二次处理的神器，用好了对工作效率的提高有很大的帮助。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Week-3&quot;&gt;&lt;a href=&quot;#Week-3&quot; class=&quot;headerlink&quot; title=&quot;Week 3&quot;&gt;&lt;/a&gt;Week 3&lt;/h1&gt;
+    
+    </summary>
+    
+      <category term="ARTS" scheme="https://kujirasama.cn/categories/ARTS/"/>
+    
+    
+      <category term="算法" scheme="https://kujirasama.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="Tips" scheme="https://kujirasama.cn/tags/Tips/"/>
+    
+  </entry>
   
   <entry>
     <title>android系统镜像</title>
