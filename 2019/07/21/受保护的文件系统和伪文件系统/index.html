@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。">
+  <meta name="description" content="本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。 OBB：Opaque Binary Blobs谷歌商店里，会把apk限制在50MB以内，如果超过这个大小，则需要用户以OBB文件的形式提供最大不超过2GB的额外数据文件。 Opaque代表不透明，这表示OBB文件的数据格式由开发者决定（尽管在许多时候，它就是个vfat文件系统镜像），有volum">
 <meta name="keywords" content="Android,文件系统,读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="受保护的文件系统和伪文件系统">
 <meta property="og:url" content="https://kujirasama.cn/2019/07/21/受保护的文件系统和伪文件系统/index.html">
 <meta property="og:site_name" content="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
-<meta property="og:description" content="本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。">
+<meta property="og:description" content="本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。 OBB：Opaque Binary Blobs谷歌商店里，会把apk限制在50MB以内，如果超过这个大小，则需要用户以OBB文件的形式提供最大不超过2GB的额外数据文件。 Opaque代表不透明，这表示OBB文件的数据格式由开发者决定（尽管在许多时候，它就是个vfat文件系统镜像），有volum">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-07-21T15:26:34.789Z">
+<meta property="og:updated_time" content="2019-08-05T16:42:10.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="受保护的文件系统和伪文件系统">
-<meta name="twitter:description" content="本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。">
+<meta name="twitter:description" content="本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。 OBB：Opaque Binary Blobs谷歌商店里，会把apk限制在50MB以内，如果超过这个大小，则需要用户以OBB文件的形式提供最大不超过2GB的额外数据文件。 Opaque代表不透明，这表示OBB文件的数据格式由开发者决定（尽管在许多时候，它就是个vfat文件系统镜像），有volum">
   <link rel="alternate" href="/atom.xml" title="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些" type="application/atom+xml">
   <link rel="canonical" href="https://kujirasama.cn/2019/07/21/受保护的文件系统和伪文件系统/">
 
@@ -250,11 +250,19 @@
                 
               
 
-              <time title="Created: 2019-07-21 18:23:06 / Modified: 23:26:34" itemprop="dateCreated datePublished" datetime="2019-07-21T18:23:06+08:00">2019-07-21</time>
+              <time title="Created: 2019-07-21 18:23:06" itemprop="dateCreated datePublished" datetime="2019-07-21T18:23:06+08:00">2019-07-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-06 00:42:10" itemprop="dateModified" datetime="2019-08-06T00:42:10+08:00">2019-08-06</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -283,8 +291,6 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。</p>
-<a id="more"></a>
-
 <h3 id="OBB：Opaque-Binary-Blobs"><a href="#OBB：Opaque-Binary-Blobs" class="headerlink" title="OBB：Opaque Binary Blobs"></a>OBB：Opaque Binary Blobs</h3><p>谷歌商店里，会把apk限制在50MB以内，如果超过这个大小，则需要用户以OBB文件的形式提供最大不超过2GB的额外数据文件。</p>
 <p>Opaque代表不透明，这表示OBB文件的数据格式由开发者决定（尽管在许多时候，它就是个vfat文件系统镜像），有volume守护进程来mount它。vold随后会调用linux内核中的device mapper。用loop（将文件系统中的镜像挂载为一个块设备，这里的loop是指循环挂载）参数进行mount操作。device mapper支持tow-fish算法，在发起OBB mount请求时，把秘钥传递给它。随后应用程序调用android.os.StorageManager中的mountOBB方法，来用指定的秘钥来mount OBB文件。这一过程如图所示(p75,图2-1)。</p>
 <p>OBB虽然不透明，但是OBB文件中仍然有一些类型的元数据，这些数据能够被解析。解析OBB的代码位于<code>/system/lib/libabdroidfw.so</code>中。OBB的文件元数据位于文件尾部，解析该元数据需要倒着解析。文件元数据中各个字段的含义如图(p76,图2-2)。</p>

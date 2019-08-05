@@ -248,11 +248,19 @@
                 
               
 
-              <time title="Created: 2019-08-05 20:44:17 / Modified: 20:46:01" itemprop="dateCreated datePublished" datetime="2019-08-05T20:44:17+08:00">2019-08-05</time>
+              <time title="Created: 2019-08-05 20:44:17" itemprop="dateCreated datePublished" datetime="2019-08-05T20:44:17+08:00">2019-08-05</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-06 00:43:24" itemprop="dateModified" datetime="2019-08-06T00:43:24+08:00">2019-08-06</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -281,7 +289,7 @@
 
       
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="init的角色和任务"><a href="#init的角色和任务" class="headerlink" title="init的角色和任务"></a>init的角色和任务</h2><p>在桌面linux中，第一个用户态进程为<code>/sbininit</code>，它会读取<code>/etc/inittab</code>文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下<code>CTRL+Alt+Del</code>组合键时该做出何种反应等信息。</p>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在桌面linux中，第一个用户态进程为<code>/sbininit</code>，它会读取<code>/etc/inittab</code>文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下<code>CTRL+Alt+Del</code>组合键时该做出何种反应等信息。</p>
 <p>在android中也是用这样的init程序，但android中的init和linux中的init仅仅是名字相同罢了，它们之前的区别如下表所示：</p>
 <table>
 <thead>
@@ -982,11 +990,19 @@
                 
               
 
-              <time title="Created: 2019-07-21 18:23:06 / Modified: 23:26:34" itemprop="dateCreated datePublished" datetime="2019-07-21T18:23:06+08:00">2019-07-21</time>
+              <time title="Created: 2019-07-21 18:23:06" itemprop="dateCreated datePublished" datetime="2019-07-21T18:23:06+08:00">2019-07-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-06 00:42:10" itemprop="dateModified" datetime="2019-08-06T00:42:10+08:00">2019-08-06</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1014,16 +1030,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/07/21/受保护的文件系统和伪文件系统/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本章节描述了android系统中常用的两种文件保护系统以及android中用到的linux伪文件系统。</p>
+<h3 id="OBB：Opaque-Binary-Blobs"><a href="#OBB：Opaque-Binary-Blobs" class="headerlink" title="OBB：Opaque Binary Blobs"></a>OBB：Opaque Binary Blobs</h3><p>谷歌商店里，会把apk限制在50MB以内，如果超过这个大小，则需要用户以OBB文件的形式提供最大不超过2GB的额外数据文件。</p>
+<p>Opaque代表不透明，这表示OBB文件的数据格式由开发者决定（尽管在许多时候，它就是个vfat文件系统镜像），有volume守护进程来mount它。vold随后会调用linux内核中的device mapper。用loop（将文件系统中的镜像挂载为一个块设备，这里的loop是指循环挂载）参数进行mount操作。device mapper支持tow-fish算法，在发起OBB mount请求时，把秘钥传递给它。随后应用程序调用android.os.StorageManager中的mountOBB方法，来用指定的秘钥来mount OBB文件。这一过程如图所示(p75,图2-1)。</p>
+<p>OBB虽然不透明，但是OBB文件中仍然有一些类型的元数据，这些数据能够被解析。解析OBB的代码位于<code>/system/lib/libabdroidfw.so</code>中。OBB的文件元数据位于文件尾部，解析该元数据需要倒着解析。文件元数据中各个字段的含义如图(p76,图2-2)。</p>
+<p>android源码树中有一个obbtool工具，这个工具是一个脚本，用来创建OBB文件。该脚本的处理流程如下：</p>
+<ol>
+<li>这个脚本首先会创建一个空的vfat镜像，然后使用device mapper以loop参数mount它。</li>
+<li>mount之后，往里面添加文件。</li>
+<li>umount之后，会把数据再次写入vfat镜像。</li>
+</ol>
+<p>除此之外，sdk中也提供了一个能创建和维护obb文件的jobb工具；再android开发框架中也有一个ObbScanner类，它能够获取obb文件中的基本元数据。</p>
+<h3 id="Asec（android-secure-storage）"><a href="#Asec（android-secure-storage）" class="headerlink" title="Asec（android secure storage）"></a>Asec（android secure storage）</h3><p>它提供了一种能安全的安装到设备上的机制，它让用户没法将一台设备的应用拷贝到另一台设备上（也称为预先锁定）。asec的创建和管理都是由vold完成，<code>vold</code>根据<code>MountService</code>发来的指令，执行相关的操作。asec创建和mount都需要密钥，在asec容器被mount的时候，vold会使用内核中device mapper，用loop参数执行mount操作，并通过DM_TABLE_LOAD ioctl操作，把密钥传递给内核中的dm-crypt模块。</p>
+<p>密钥本身会以明文的形式保存在<code>/data/misc/systemkeys/AppsOnSD.sks</code>文件中。如果设备被root，则这个加密也会失去其木来的目的。</p>
+<p>asec和obb这两种加密都是用了device mapper和它的文件加密功能（dm-crypt）创建和访问数据。asce实际上可以被视为obb的升级版，从加密存储应用的扩展文件，升级到加密存储的整个应用。</p>
+<h2 id="linux伪文件系统"><a href="#linux伪文件系统" class="headerlink" title="linux伪文件系统"></a>linux伪文件系统</h2><p>伪文件系统所包含的文件都不会被存储在物理存储设备中，它们是直接由内核中的回调函数维护的。访问一个伪文件或目录时，某个对应的内核级处理函数就会被调用。因此这些伪文件的大小是没有意义的。</p>
+<p>大多数伪文件都是以只读权限创建的，这些文件向用户态程序提供一种使之能够查看一些内核态中原本是不可访问的变量和结构体。少部分伪文件则是可写的，这些文件能够向用户态程序提供一种实时对内核中的数据施加影响的方法，就像注册表配置一样，且不用重启，但这些配置会因为系统的重启而丢失，在android系统中的init.rc脚本的重要功能就是保存这些配置。</p>
+<table>
+<thead>
+<tr>
+<th>FS</th>
+<th></th>
+<th>对应目录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cgroupfs</td>
+<td>androdi中只用来CPU计时和线程调度</td>
+<td>-</td>
+</tr>
+<tr>
+<td>debugfs</td>
+<td>用于输出内核级别的调试信息，<code>mount -t debugfs none /sys/kernel/debug</code></td>
+<td><code>/d</code></td>
+</tr>
+<tr>
+<td>functionfs</td>
+<td>由内核提供一个通用的文件系统，让驱动能够通过用户态的形式进行配置</td>
+<td><code>/dev/usb-ffs/adb</code></td>
+</tr>
+<tr>
+<td>procfs</td>
+<td>提供一个机遇目录的观察系统中运行进程的方式</td>
+<td><code>/proc</code></td>
+</tr>
+<tr>
+<td>pstore</td>
+<td>抓取内核崩溃的数据</td>
+<td><code>/sys/fs/pstore</code></td>
+</tr>
+<tr>
+<td>selinuxfs</td>
+<td>存储了与安全策略相关的文件</td>
+<td><code>/sys/fs/selinux</code></td>
+</tr>
+<tr>
+<td>sysfs</td>
+<td>linux 2.6以后作为补充而引入，比/proc更井井有条</td>
+<td><code>/sys</code></td>
+</tr>
+</tbody></table>
+
           
-          <!--/noindex-->
         
       
     </div>
@@ -1081,11 +1150,19 @@
                 
               
 
-              <time title="Created: 2019-07-21 18:05:37 / Modified: 22:44:27" itemprop="dateCreated datePublished" datetime="2019-07-21T18:05:37+08:00">2019-07-21</time>
+              <time title="Created: 2019-07-21 18:05:37" itemprop="dateCreated datePublished" datetime="2019-07-21T18:05:37+08:00">2019-07-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-06 00:42:23" itemprop="dateModified" datetime="2019-08-06T00:42:23+08:00">2019-08-06</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1113,16 +1190,783 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/07/21/android文件系统中存储的内容/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。</p>
+<h3 id="root文件系统"><a href="#root文件系统" class="headerlink" title="root文件系统"></a>root文件系统</h3><p>android的root文件系统（/）是mount自ramdisk.img(initramfs)的文件。<br>每次启动时fastboot从boot分区中把这个镜像加载到内存中，并将其提交到内核进行管理。除非进行刷机（flashed）否则root文件系统将不会被更改。root系统中包含以后/init和与其相关的配置文件以及可执行文件，具体细节在下表：</p>
+<table>
+<thead>
+<tr>
+<th>目录或文件</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>default.prop</td>
+<td>编译时<code>/build/core/main.mk</code>中<code>ADDITIONAL_DEFAULT_PROPERTIES</code>变量的值，init根据它加载其他系统范围内的属性文件</td>
+</tr>
+<tr>
+<td>file_contexts</td>
+<td>记录SELinux中文件的context。用于限制非授权用户访问系统文件和目录</td>
+</tr>
+<tr>
+<td>init</td>
+<td>将会被内核以pid 1执行的二进制文件</td>
+</tr>
+<tr>
+<td>init[…].rc</td>
+<td><code>/init</code>的配置文件，主要是init.rc</td>
+</tr>
+<tr>
+<td>property_contexts</td>
+<td>记录SELinux中的系统属性的contexts</td>
+</tr>
+<tr>
+<td>seapp_contexts</td>
+<td>记录SELinux中的应用的context，限制应用的操作域</td>
+</tr>
+<tr>
+<td>sepolicy</td>
+<td>SELinux策略设置编译后的结果</td>
+</tr>
+<tr>
+<td>sbin/</td>
+<td>该目录中有abd、healthd以及recovery等可执行文件，即使不mount /system也能够使用</td>
+</tr>
+<tr>
+<td>verity_key</td>
+<td>含有认证<code>/system</code>所需要的<code>DM_Verity RSA</code>密钥</td>
+</tr>
+</tbody></table>
+<h3 id="system分区"><a href="#system分区" class="headerlink" title="/system分区"></a>/system分区</h3><p>该分区是存放谷歌或者其他厂商提供andorid组件的位置，该目录及其下所有文件都属于root:root，其权限为0755，但是该文件系统是以只读方式mount的；这样做的目的是提高文件系统的<strong>稳定性</strong>和<strong>安全性</strong>。理论上对于绝大多数设备来说，本分区下的所有目录以及文件都是一样的。实际上，一些厂商和运营商都会向<code>/system</code>添加自己的内容（android专门为厂商设计了<code>/vendor</code>目录来放置相关内容），具体细节在下表：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>app</td>
+<td>存放系统应用，有谷歌预绑定的app，也有厂商提供的app</td>
+</tr>
+<tr>
+<td>bin</td>
+<td>存放二进制可执行文件，有守护进程的，也有一些命令行shell使用的</td>
+</tr>
+<tr>
+<td>build.prop</td>
+<td>在编译时生成的属性文件，<code>/init</code>根据它在启动过程中去加载其他的属性文件</td>
+</tr>
+<tr>
+<td>etc</td>
+<td>存储了各种配置文件，它是<code>/etc</code>的符号链接</td>
+</tr>
+<tr>
+<td>fonts</td>
+<td>字体文件</td>
+</tr>
+<tr>
+<td>framework</td>
+<td>存放android的框架，各个framework都会存放在各自的jar文件中，每个framework的dex文件经过优化后，会被存放在与jar文件同名的odex文件中</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>存放运行时的库文件</td>
+</tr>
+<tr>
+<td>lost+found</td>
+<td>在<code>/system</code>进行fsck操作时生成的目录，系统如果崩溃，该目录可能会含有不知道自己上一级目录是谁的inode</td>
+</tr>
+<tr>
+<td>media</td>
+<td>以ogg形式存放的各种音频、以及在系统启动时播放的动画</td>
+</tr>
+<tr>
+<td>priv-app</td>
+<td>该目录存放了特权应用</td>
+</tr>
+<tr>
+<td>usr</td>
+<td>支持文件，比如unicode的映射文件、设备和键盘的键盘布局文件</td>
+</tr>
+<tr>
+<td>vendor</td>
+<td>用于存放厂商提供的文件，实际上厂商都不会放这里</td>
+</tr>
+<tr>
+<td>xbin</td>
+<td>存放用途特殊的，正常操作过程中不需要的二进制可执行文件。在模拟器中，这个目录都是存放来自asop的<code>/system/extras</code>的各种工具。各种提取su权限的root程序也放在这里</td>
+</tr>
+</tbody></table>
+<h4 id="system-bin"><a href="#system-bin" class="headerlink" title="/system/bin"></a>/system/bin</h4><p>本目录放置andorid使用的各种可执行文件（包含调试工具）。具体可以分为5类：</p>
+<ul>
+<li><p>用来提供服务的可执行文件，这类二进制文件都是在系统运行过程中有<code>/init</code>来进行调用的，他们调用的路径保存在<code>/init</code>使用的rc文件中。</p>
+<table>
+<thead>
+<tr>
+<th>可执行文件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>aoo_process</td>
+<td>用户app的宿主进程，Zygote都是这个可执行文件的实例，它由Dalvik VM/ART初始化</td>
+</tr>
+<tr>
+<td>applypatch[_static]</td>
+<td>在OTA升级过程中使用–根据脚本来应用补丁</td>
+</tr>
+<tr>
+<td>bootanimation</td>
+<td>在图形界面子系统（<code>surfacefliger</code>）加载时，播放的启动动画</td>
+</tr>
+<tr>
+<td>clatd</td>
+<td>ipv4转ipv6的转换器</td>
+</tr>
+<tr>
+<td>dalvikvm</td>
+<td>用于启动dalvik虚拟机的实例</td>
+</tr>
+<tr>
+<td>debuggerd</td>
+<td>在系统崩溃时产生tombstone，也可以和一个远程gdb相连接</td>
+</tr>
+<tr>
+<td>drmserver</td>
+<td>DRM模块的宿主进程</td>
+</tr>
+<tr>
+<td>dnsmasq</td>
+<td>伪dns服务，在设备提供热点服务时，提供dns代理服务</td>
+</tr>
+<tr>
+<td>hostpad</td>
+<td>wifi热点守护进程</td>
+</tr>
+<tr>
+<td>keystore</td>
+<td>android的密钥存储和管理服务</td>
+</tr>
+<tr>
+<td>linker</td>
+<td>android运行时的链接器</td>
+</tr>
+<tr>
+<td>mdnsd</td>
+<td>组播dns的守护进程，用来使相邻的设备能够通过和wifi直连的方式相互发现和通信</td>
+</tr>
+<tr>
+<td>mediaserver</td>
+<td>音视频录制以及播放</td>
+</tr>
+<tr>
+<td>mtpd</td>
+<td>用来支持ppp/l2tp</td>
+</tr>
+<tr>
+<td>netd</td>
+<td>用来管理网卡以及防火墙</td>
+</tr>
+<tr>
+<td>pppd</td>
+<td>点对点协议守护进程，vpn需要使用</td>
+</tr>
+<tr>
+<td>racoon</td>
+<td>提供对vpn的支持</td>
+</tr>
+<tr>
+<td>rlid</td>
+<td>无线界面层守护进程</td>
+</tr>
+<tr>
+<td>sdcard</td>
+<td>sd卡守护进程，实现了sd卡文件系统，通过fuse模拟多用户权限设置</td>
+</tr>
+<tr>
+<td>sensorservice</td>
+<td>sensor hub，并发读取各种传感器</td>
+</tr>
+<tr>
+<td>servicemanager</td>
+<td>提供了服务的注册以及查找功能</td>
+</tr>
+<tr>
+<td>surfaceflinger</td>
+<td>画出图形界面的样子，并把他们加载到framebuffer中</td>
+</tr>
+<tr>
+<td>vold</td>
+<td>Volume守护进程，用来mount和unmount文件系统，也有文件系统的解密功能</td>
+</tr>
+<tr>
+<td>uncrypt</td>
+<td>解密文件系统，在recovery前使用</td>
+</tr>
+<tr>
+<td>wpa_supplicant</td>
+<td>无线访问适配层，提供wifi和wifi p2p的客户端支持</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>调试工具，被归入这一类的事一些用于调试的原生二进制可执行文件（一般在模拟器中包含，厂商一般会在实机中删除）。</p>
+</li>
+<li><p>UNIX命令，unix相关的常用命令，和android特有的命令（getprop/setprop/watchprop），一般集成在<code>/system/bin/toolbox</code>中。</p>
+</li>
+<li><p>调用Dalvik的脚本（upcall script），这些脚本通过shell与Dalvik进行交互（主要是调试），这些脚本都是从<code>/sysytem/bin/app_process</code>派生未来，用它们在<code>/system/framework</code>目录中的同名框架，加载Dalvik类（zygote本身就是app_process的一个实例），使用时，脚本会把用户传给它的参数直接传递给Dalvik类。我们只需要看Dalvik脚本中的<strong>am</strong>就可以了解这些脚本的结构了。下表描述了<code>/system/bin</code>中封装了app_process的脚本。</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>am</td>
+<td>与ActivityManager进行交互，启动activity发起的intent</td>
+</tr>
+<tr>
+<td>bmgr</td>
+<td>备份管理接口</td>
+</tr>
+<tr>
+<td>bu</td>
+<td>启动备份</td>
+</tr>
+<tr>
+<td>content</td>
+<td>与android content provider交互的接口</td>
+</tr>
+<tr>
+<td>ime</td>
+<td>控制输入法编辑器</td>
+</tr>
+<tr>
+<td>input</td>
+<td>与<code>InputManager</code>进行交互，注入输入事件</td>
+</tr>
+<tr>
+<td>media</td>
+<td>控制当前的媒体播放器</td>
+</tr>
+<tr>
+<td>monkey</td>
+<td>用随机生成的输入时间运行一个APK</td>
+</tr>
+<tr>
+<td>pm</td>
+<td>与包管理器进行交互，可以用来列出、安装、删除包以及列出权限</td>
+</tr>
+<tr>
+<td>requestsync</td>
+<td>同步账号</td>
+</tr>
+<tr>
+<td>setting</td>
+<td>获取、设置系统权限</td>
+</tr>
+<tr>
+<td>svc</td>
+<td>控制电源、数据、wifi和usb类服务</td>
+</tr>
+<tr>
+<td>uiautomator</td>
+<td>进行UI自动化测试，测试dump view之间的层次关系</td>
+</tr>
+<tr>
+<td>wm</td>
+<td>与窗口管理器进行交互、修改显示尺寸和分辨率等</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>厂商定制的二进制脚本文件，这类文件完全可以由厂商提供，通常为提供服务或者调试的工具。当然这些文件也可以按照aosp的约定放到<code>/vendor</code>中,但这也不是强制的。</p>
+</li>
+</ul>
+<h4 id="system-xbin"><a href="#system-xbin" class="headerlink" title="/system/xbin"></a>/system/xbin</h4><p>这个目录类似于unix中的<code>/sbin</code>，这里面含有管理员可能会觉得非常有用的二进制可执行文件，一般不提供给普通用户使用。这里命名为“x”而不是“s”是为了避免与android自身的<code>/sbin</code>（root文件系统中的一部分，含有系统操作时必须的二进制可执行文件）冲突。<br>这个目录中的可执行文件时从asop的<code>/system/extras</code>目录中编译得来的。这个目录会不会出现取决于厂商（有的厂商会吧这个目录删除）。下表中包含模拟器在该目录中包含的文件：</p>
+<table>
+<thead>
+<tr>
+<th>可执行文件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add-property-tag</td>
+<td>向系统的.prop文件中添加属性</td>
+</tr>
+<tr>
+<td>check-lost+found</td>
+<td>在fsck操作完成之后，检查lost+found目录</td>
+</tr>
+<tr>
+<td>cpueater</td>
+<td>让cpu跑到100%的死循环</td>
+</tr>
+<tr>
+<td>cpustats</td>
+<td>显示cpu和处理器调节器的统计信息</td>
+</tr>
+<tr>
+<td>daemonize</td>
+<td>把一个可执行文件作为守护进程启动，并关闭stdin/stdout/stderr</td>
+</tr>
+<tr>
+<td>dexdump</td>
+<td>dex文件dump工具，也能dump文件头和字节码</td>
+</tr>
+<tr>
+<td>directiotest</td>
+<td>测试块设备io性能</td>
+</tr>
+<tr>
+<td>kexecload</td>
+<td>使用kexec系统调用，用一个新的内核重写内核镜像</td>
+</tr>
+<tr>
+<td>ksminfo</td>
+<td>显示ksm的使用信息</td>
+</tr>
+<tr>
+<td>latencytop</td>
+<td>以可读性更强的形式显示<code>/proc/sys/kernel/latencytop</code>中的数据</td>
+</tr>
+<tr>
+<td>librank</td>
+<td>给出各个共享内存区域所在各个进程中的使用情况</td>
+</tr>
+<tr>
+<td>memtrack</td>
+<td>跟踪进程的内存使用情况</td>
+</tr>
+<tr>
+<td>micro_bench</td>
+<td>内存基准测试工具</td>
+</tr>
+<tr>
+<td>nc</td>
+<td>netcat，分析TCP和UDP的工具</td>
+</tr>
+<tr>
+<td>netperf</td>
+<td>客户端网络性能分析工具</td>
+</tr>
+<tr>
+<td>netserver</td>
+<td>服务端网络性能分析工具</td>
+</tr>
+<tr>
+<td>procmem</td>
+<td>显示进程内存使用情况统计信息</td>
+</tr>
+<tr>
+<td>procrank</td>
+<td>和librank互补，它可以逐个进程给出共享内存使用信息</td>
+</tr>
+<tr>
+<td>rawbu</td>
+<td>在底层备份/恢复 <code>/data</code>中的数据</td>
+</tr>
+<tr>
+<td>sane_schedstat</td>
+<td>以刻度形式展示scheduler信息</td>
+</tr>
+<tr>
+<td>showmap</td>
+<td>显示进程内存的分配情况</td>
+</tr>
+<tr>
+<td>showslab</td>
+<td>显示内核slab分配器的信息</td>
+</tr>
+<tr>
+<td>SQLite3</td>
+<td>命令行工具</td>
+</tr>
+<tr>
+<td>strace</td>
+<td>系统调用trace工具</td>
+</tr>
+<tr>
+<td>su</td>
+<td>切换用户</td>
+</tr>
+<tr>
+<td>taskstats</td>
+<td>提供liunx的taskstats接口的详细使用统计信息</td>
+</tr>
+<tr>
+<td>tcpdump</td>
+<td>抓包工具</td>
+</tr>
+<tr>
+<td>timeinfo</td>
+<td>输出时间的相关信息</td>
+</tr>
+</tbody></table>
+<p>在真实设备中，这些可执行文件作为调试工具特别有用，安装方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adb pull /system/xbin #把模拟器中的文件复制到主机中</span><br><span class="line">#如果设备的/system文件可写</span><br><span class="line">adb push .. /system/xbin #把主机中的文件复制到设备中</span><br><span class="line">#除此之外，还有一些可执行文件的依赖库在/system/lib中可以找到</span><br></pre></td></tr></table></figure>
+
+<h4 id="system-lib-64"><a href="#system-lib-64" class="headerlink" title="/system/lib[64]"></a>/system/lib[64]</h4><p>该目录中包含<code>/system/bin</code>和<code>/system/xbin</code>中可执行文件所使用的共享库。在大多数的设备中，<code>/system/lib</code>中包含有多个字目录，如下：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>drm/</td>
+<td>提供drm引擎。比如一些包含专利的so，libfwdlockengine.so</td>
+</tr>
+<tr>
+<td>egl/</td>
+<td>android版本的opengles</td>
+</tr>
+<tr>
+<td>hw/</td>
+<td>HAL模块</td>
+</tr>
+<tr>
+<td>ssl/engines</td>
+<td>含有libkeystore.so，该库使得OpenSSL能够使用android的Keystore机能</td>
+</tr>
+</tbody></table>
+<p>在Intel设备中，本目录还包含有一个名为arm/的子目录，这个目录包含有arm架构编译的共享库的拷贝。这些库会被用在Intel二进制执行环境转换层（binary translation layer）Houdini上，用来为执行arm的可执行文件提供一个完整的运行时环境。</p>
+<p>在android中几乎所有的二进制文件都是动态链接的。唯一例外的时<code>/sbin</code>目录中的二进制可执行文件。因为这些可执行文件会在<code>/system</code>被mount之前就会被用到。</p>
+<h4 id="system-etc"><a href="#system-etc" class="headerlink" title="/system/etc"></a>/system/etc</h4><p>这个目录和unix类似，里面都存放这配置文件。<code>/etc</code>也是这个目录的符号链接，这样做的目的时为了让ASOP项目以外的项目也能找到配置文件（unix的配置文件目录就是<code>/etc</code>）。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NOTICE.html.gz</td>
+<td>法律文件</td>
+</tr>
+<tr>
+<td>audio_effects.conf</td>
+<td>被android的HAL层使用的文件</td>
+</tr>
+<tr>
+<td>audio_polic.conf</td>
+<td>被android的HAL层使用的文件</td>
+</tr>
+<tr>
+<td>apns-conf.xml</td>
+<td>被com.android.providers.telephony.TelephonyProvider使用</td>
+</tr>
+<tr>
+<td>asound.conf</td>
+<td>设备ALSA的配置文件</td>
+</tr>
+<tr>
+<td>bluetooth</td>
+<td>蓝牙配置文件</td>
+</tr>
+<tr>
+<td>clatd.conf</td>
+<td>CLATd,实现ipv4 over ipv6的配置文件</td>
+</tr>
+<tr>
+<td>event-log-tags</td>
+<td>各个android组件的日志log，被android.util.EventLog使用</td>
+</tr>
+<tr>
+<td>fallback_fonts.xml</td>
+<td>列出了在加载system_fonts.xml中没有指定的font-family时所能选用的fallback font。它会被android中的layoutlib的FontLoader所使用</td>
+</tr>
+<tr>
+<td>gps.conf</td>
+<td>gps配置文件</td>
+</tr>
+<tr>
+<td>hosts</td>
+<td>主机-IP表对应关系</td>
+</tr>
+<tr>
+<td>media_codecs.xml</td>
+<td>列出了StageFright所支持的所有codec</td>
+</tr>
+<tr>
+<td>media_profiles.xml</td>
+<td>列出了LibMedia所支持的所有profile</td>
+</tr>
+<tr>
+<td>ppp/</td>
+<td>存放启动/停止vpn和ppp连接活动的可执行文件</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td>存放了多个xml文件，每个文件规定了一个内置文件应用的权限，它会被<code>PackageManager</code>使用</td>
+</tr>
+<tr>
+<td>security</td>
+<td>这个目录存有被各种安全证书</td>
+</tr>
+<tr>
+<td>system_fonts.xml</td>
+<td>列出字体样式，并把字体样式和<code>/system/fonts</code>中的各个TTF文件一一对应起来</td>
+</tr>
+<tr>
+<td>wifi</td>
+<td>WPA supplicant适配层的配置目录，用于控制wifi和wifi p2p的连接活动</td>
+</tr>
+</tbody></table>
+<p>在不同的设备制造商手里，本目录中可能还有一些其他文件。</p>
+<h3 id="data分区"><a href="#data分区" class="headerlink" title="/data分区"></a>/data分区</h3><p>这个分区使用来存放用户个人数据的，将用户的个人数据单独存放起来有如下的好处：</p>
+<ul>
+<li>降低<code>/data</code>和android系统的耦合。系统在升级或者恢复的时候仅会对<code>/system</code>目录进行操作（擦除或重写），而不会对<code>/data</code>中的用户数据有其他的影响。系统在恢复出厂设置时则仅会格式化/data分区，而不会对系统有其他的影响。</li>
+<li>在用户需要时，<code>/data</code>能够被加密，而加密以及解密都会对系统运行造成延迟。而由于这种设计，<code>/system</code>中是没有敏感设备，加密用户的数据也就不会因加密而影响到系统，给系统带来相关的延迟。</li>
+<li><code>/data</code>可以设置为不可执行，这样极大的加大了恶意软件的攻击难度。因为，恶意软件在设置为不可以执行后，就没有了可写又可执行的分区。因为DEX和OAT是运行在虚拟机里面的，所有这对Dalvik和ART app不会有任何影响。root后的设备是需要remount该分区的。</li>
+</ul>
+<p><code>/data</code>分区是以nosuid的权限mount的，这使得root设备更加复杂了一些，因为su不能放在/data中运行而只能放在 <code>/system</code>这样的只读分区中。如果系统在对<code>/system</code>进行hash校验的话，则root就更加不容易执行了。<br>下表列出了存储在<code>/data</code>分区中的内容：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>anr</td>
+<td>dumpstate用来记录失去响应的应用的函数调用栈当前状态的地方</td>
+</tr>
+<tr>
+<td>app</td>
+<td>用户自己安装的应用</td>
+</tr>
+<tr>
+<td>app-asec</td>
+<td>存放asec的容器，每个asec加密的应用都对应一个asec容器</td>
+</tr>
+<tr>
+<td>app-lib</td>
+<td>应用的JNI库都可以在这里被找到</td>
+</tr>
+<tr>
+<td>app-private</td>
+<td>提供应用的私有存储空间，目前被asec替代</td>
+</tr>
+<tr>
+<td>backup</td>
+<td>供备份服务使用</td>
+</tr>
+<tr>
+<td>bugreports</td>
+<td>bugreport专用，用来存放bugreport生成的报告</td>
+</tr>
+<tr>
+<td>davlvik-cache</td>
+<td>用于存放优化过的系统应用和用户安装的应用的class.dex</td>
+</tr>
+<tr>
+<td>data</td>
+<td>各个已经安装的应用的目录，目录名为逆dns格式</td>
+</tr>
+<tr>
+<td>dontpanic</td>
+<td>未使用</td>
+</tr>
+<tr>
+<td>drm</td>
+<td>供android的数字版权管理器使用</td>
+</tr>
+<tr>
+<td>local</td>
+<td>供uid shell使用的一个临时目录，在adb中也可以使用</td>
+</tr>
+<tr>
+<td>lost+found</td>
+<td>对<code>/data</code>分区执行fsck操作时自动生成的目录</td>
+</tr>
+<tr>
+<td>media</td>
+<td>供sdcard服务吧sd卡mount到这个mount点上</td>
+</tr>
+<tr>
+<td>mediadrm</td>
+<td>供Media DRM服务使用</td>
+</tr>
+<tr>
+<td>misc</td>
+<td>各种其他文件的目录</td>
+</tr>
+<tr>
+<td>nfc</td>
+<td>存储NFC参数</td>
+</tr>
+<tr>
+<td>property</td>
+<td>存放持久性属性，文件名就是属性名</td>
+</tr>
+<tr>
+<td>resource-cache</td>
+<td>供<code>AssetManager</code>使用的资源缓存</td>
+</tr>
+<tr>
+<td>security</td>
+<td>一般为空</td>
+</tr>
+<tr>
+<td>ssh</td>
+<td>供那些ssh服务使用</td>
+</tr>
+<tr>
+<td>system</td>
+<td>存放了大量的系统配置文件</td>
+</tr>
+<tr>
+<td>tombstone</td>
+<td>存放由debuggerd生成的应用崩溃报告</td>
+</tr>
+<tr>
+<td>user</td>
+<td>与4.1版本开始引入。不同的用户会把各自的数据和应用安装在<code>/data/user/用户号</code>下的各个目录中，系统运行时，把<code>/data/data</code>下的对应目录做符号链接，使之指向<code>/data/user/用户号</code>下对应的目录。这样做可以使android系统支持多用户，<code>/data/data</code>会被直接指向<code>/data/user/0</code></td>
+</tr>
+</tbody></table>
+<h4 id="data-data"><a href="#data-data" class="headerlink" title="/data/data"></a>/data/data</h4><p>这个目录是所有应用（系统应用、用户安装的应用）都存储其对应数据的地方。每一个应用都对应有一个目录，每个子目录权限为<code>0751</code>，而/data/data本身的权限为<code>0771，system system</code>,这意味着这个目录本身是可以执行的（cd命令），但却不能读出其包含的子目录。在应用中，每个应用对应的子目录也是这样的，能够执行却不能被非拥有者读取。</p>
+<p>/data/data下各个目录的字目录都是其对应应用在整个文件系统中唯一能够执行写入的位置。</p>
+<h4 id="data-misc"><a href="#data-misc" class="headerlink" title="/data/misc"></a>/data/misc</h4><p>和它的名字相反，这个目录有一些重要的文件。如下表：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>adb</td>
+<td>存储可信的允许进行链接的电脑公钥</td>
+</tr>
+<tr>
+<td>bluetooth</td>
+<td>BlueZ[&lt;4.2]的配置文件</td>
+</tr>
+<tr>
+<td>dhcp</td>
+<td>存储实现dhcp的ctdent守护进程的PID文件</td>
+</tr>
+<tr>
+<td>keychain</td>
+<td>存放android内置证书pin码和黑名单</td>
+</tr>
+<tr>
+<td>sensors</td>
+<td>用于存储传感器调试数据</td>
+</tr>
+<tr>
+<td>sms</td>
+<td>存储短信codes数据库</td>
+</tr>
+<tr>
+<td>systemkeys</td>
+<td>用来存储asec容器的密钥</td>
+</tr>
+<tr>
+<td>vpn</td>
+<td>用来存储vpn状态配置文件</td>
+</tr>
+<tr>
+<td>wifi</td>
+<td>用于存储wifi子系统的配置文件和套接字</td>
+</tr>
+</tbody></table>
+<h4 id="data-system"><a href="#data-system" class="headerlink" title="/data/system"></a>/data/system</h4><p>这个目录中含有对维护设备状态非常重要的文件。这个目录的访问权限也是被限制为<code>system system</code>，如果设备没有root，则无法看到该目录下的各个文件。下表中列出了相关文件：</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>appops.xml</td>
+<td>供控制应用权限的AppOps服务使用</td>
+</tr>
+<tr>
+<td>batterystats.bin</td>
+<td>供<code>BatteryStats</code>服务使用</td>
+</tr>
+<tr>
+<td>called_pre_boots.dat</td>
+<td>供<code>ActivityManager</code>记录每个Boot broadcast receiver</td>
+</tr>
+<tr>
+<td>device_policies.xml</td>
+<td><code>DevicePolicyManagerService</code>使用的配置文件</td>
+</tr>
+<tr>
+<td>dropbox</td>
+<td>供DropBox服务使用</td>
+</tr>
+<tr>
+<td>entropy.dat</td>
+<td>供<code>EntropyMixer</code>生成随机数使用</td>
+</tr>
+<tr>
+<td>gesture.key</td>
+<td>锁屏图案的hash</td>
+</tr>
+<tr>
+<td>framework_atlas.config</td>
+<td>供负责将预加载的bitmap组装成纹理贴图的<code>AssetAtlasService</code>使用</td>
+</tr>
+<tr>
+<td>ifw/</td>
+<td>Intent防火墙规则库</td>
+</tr>
+<tr>
+<td>locksettings.db</td>
+<td>锁屏设置，记录了设备的锁屏策略</td>
+</tr>
+<tr>
+<td>netpolicy.xml</td>
+<td>供<code>NetworkPolicyManagerService</code>使用的配置文件</td>
+</tr>
+<tr>
+<td>netstats/</td>
+<td>用来记录<code>NetworkStatsService</code>按device、uid或xt得到的网络传输数据统计的目录</td>
+</tr>
+<tr>
+<td>packages.list</td>
+<td><code>PackageManager</code>列出的所有安装在系统中的包</td>
+</tr>
+<tr>
+<td>packages.xml</td>
+<td><code>PackageManager</code>列出的所有已安装包的元数据</td>
+</tr>
+<tr>
+<td>password.key</td>
+<td>锁屏PIN码/口令的hash</td>
+</tr>
+<tr>
+<td>procstats/</td>
+<td>供<code>ProcessStats</code>服务存储文件的目录</td>
+</tr>
+<tr>
+<td>registered_services/</td>
+<td>供<code>android.content.pm.RegisteredServicesCache</code>使用的目录</td>
+</tr>
+<tr>
+<td>usagestats/</td>
+<td>供<code>UsageStats</code>服务存储文件，特别是usage-history.xml文件的目录</td>
+</tr>
+<tr>
+<td>users/</td>
+<td>android的多用户支持</td>
+</tr>
+</tbody></table>
+<h3 id="cache分区"><a href="#cache分区" class="headerlink" title="/cache分区"></a>/cache分区</h3><p>android在系统升级的过程中使用本分区。系统的升级包会被下载到这里。设备在<code>recovery/</code>升级模式下启动时，会用到这个分区。<br>recovery这个可执行文件和系统在启动到recovery模式时，也会用到这个分区来交换信息。</p>
+<h3 id="vendor分区"><a href="#vendor分区" class="headerlink" title="/vendor分区"></a>/vendor分区</h3><p>本分区是用来存储厂商对android系统的修改。这样做是避免在系统更新时厂商的修改也被抹除。一些专门的组件会在添加<code>/system</code>目录之前，回先去检查<code>/vendor</code>目录，具体会去检查哪些路径。</p>
+<p>由于这个目录交由厂商处理，所以这些目录存储的内容在不同的设备上存在很大的区别。如/vendor/app目录是提供给厂商进行放置预装的应用，但实际上基本上没有人去用。</p>
+<h3 id="sd卡"><a href="#sd卡" class="headerlink" title="sd卡"></a>sd卡</h3><p>大多数的sd卡都是exfat或者fat32文件系统，这两种系统都不支持权限管理。为了能实现权限管理、多用户配置，android通过FUSE（<code>file user</code>，用户态下的文件系统）模拟sd卡的方式来解决这个问题.FUSE使我们在用户态进程中实现文件系统。FUSE会在内核中安装一个用于支持通用文件系统的小模块，同过这个模块和VFS对接实现基本的注册文件系统功能，而真正的文件系统是在一个用户态进程（<code>/system/bin/sdcard</code>）中实现。在新版的android中，sd卡的mount点在<code>/storage/ext_sd</code>中，对于没有sd的设备，这个mount点通常会指向/data分区中的目录（<code>/data/media/0</code>）。</p>
+<p>上面提到的一些目录都已经在<code>android.os.Environment</code>类中被定义为了常量。</p>
+<p>android还提供了模拟sd卡文件系统，无论有没有sd卡都可以使用。通过mount命令，可以观察到sd卡文件系统。</p>
+
           
-          <!--/noindex-->
         
       
     </div>

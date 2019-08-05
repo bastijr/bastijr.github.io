@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。">
+  <meta name="description" content="本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。 root文件系统android的root文件系统（/）是mount自ramdisk.img(initramfs)的文件。每次启动时fastboot从boot分区中把这个镜像加载到内存中，并将其提交到内核进行管理。除非进行刷机（flashed）否则ro">
 <meta name="keywords" content="Android,文件系统,读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android文件系统中存储的内容">
 <meta property="og:url" content="https://kujirasama.cn/2019/07/21/android文件系统中存储的内容/index.html">
 <meta property="og:site_name" content="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
-<meta property="og:description" content="本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。">
+<meta property="og:description" content="本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。 root文件系统android的root文件系统（/）是mount自ramdisk.img(initramfs)的文件。每次启动时fastboot从boot分区中把这个镜像加载到内存中，并将其提交到内核进行管理。除非进行刷机（flashed）否则ro">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-07-21T14:44:27.904Z">
+<meta property="og:updated_time" content="2019-08-05T16:42:23.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android文件系统中存储的内容">
-<meta name="twitter:description" content="本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。">
+<meta name="twitter:description" content="本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。 root文件系统android的root文件系统（/）是mount自ramdisk.img(initramfs)的文件。每次启动时fastboot从boot分区中把这个镜像加载到内存中，并将其提交到内核进行管理。除非进行刷机（flashed）否则ro">
   <link rel="alternate" href="/atom.xml" title="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些" type="application/atom+xml">
   <link rel="canonical" href="https://kujirasama.cn/2019/07/21/android文件系统中存储的内容/">
 
@@ -250,11 +250,19 @@
                 
               
 
-              <time title="Created: 2019-07-21 18:05:37 / Modified: 22:44:27" itemprop="dateCreated datePublished" datetime="2019-07-21T18:05:37+08:00">2019-07-21</time>
+              <time title="Created: 2019-07-21 18:05:37" itemprop="dateCreated datePublished" datetime="2019-07-21T18:05:37+08:00">2019-07-21</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-06 00:42:23" itemprop="dateModified" datetime="2019-08-06T00:42:23+08:00">2019-08-06</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -283,8 +291,6 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本章描述了android的文件系统,以及root文件系统、/system分区、/data分区、/cache分区以及/vendor目录和SDk的细节。</p>
-<a id="more"></a>
-
 <h3 id="root文件系统"><a href="#root文件系统" class="headerlink" title="root文件系统"></a>root文件系统</h3><p>android的root文件系统（/）是mount自ramdisk.img(initramfs)的文件。<br>每次启动时fastboot从boot分区中把这个镜像加载到内存中，并将其提交到内核进行管理。除非进行刷机（flashed）否则root文件系统将不会被更改。root系统中包含以后/init和与其相关的配置文件以及可执行文件，具体细节在下表：</p>
 <table>
 <thead>

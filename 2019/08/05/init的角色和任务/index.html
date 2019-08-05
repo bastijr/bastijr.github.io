@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="init的角色和任务在桌面linux中，第一个用户态进程为/sbininit，它会读取/etc/inittab文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下CTRL+Alt+Del组合键时该做出何种反应等信息。 在android中也是用这样的init程序，但android中的init和linux中的init">
+  <meta name="description" content="在桌面linux中，第一个用户态进程为/sbininit，它会读取/etc/inittab文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下CTRL+Alt+Del组合键时该做出何种反应等信息。 在android中也是用这样的init程序，但android中的init和linux中的init仅仅是名字相同罢了，">
 <meta name="keywords" content="Android,读书笔记,init">
 <meta property="og:type" content="article">
 <meta property="og:title" content="init的角色和任务">
 <meta property="og:url" content="https://kujirasama.cn/2019/08/05/init的角色和任务/index.html">
 <meta property="og:site_name" content="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
-<meta property="og:description" content="init的角色和任务在桌面linux中，第一个用户态进程为/sbininit，它会读取/etc/inittab文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下CTRL+Alt+Del组合键时该做出何种反应等信息。 在android中也是用这样的init程序，但android中的init和linux中的init">
+<meta property="og:description" content="在桌面linux中，第一个用户态进程为/sbininit，它会读取/etc/inittab文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下CTRL+Alt+Del组合键时该做出何种反应等信息。 在android中也是用这样的init程序，但android中的init和linux中的init仅仅是名字相同罢了，">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-08-05T12:46:01.165Z">
+<meta property="og:updated_time" content="2019-08-05T16:43:24.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="init的角色和任务">
-<meta name="twitter:description" content="init的角色和任务在桌面linux中，第一个用户态进程为/sbininit，它会读取/etc/inittab文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下CTRL+Alt+Del组合键时该做出何种反应等信息。 在android中也是用这样的init程序，但android中的init和linux中的init">
+<meta name="twitter:description" content="在桌面linux中，第一个用户态进程为/sbininit，它会读取/etc/inittab文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下CTRL+Alt+Del组合键时该做出何种反应等信息。 在android中也是用这样的init程序，但android中的init和linux中的init仅仅是名字相同罢了，">
   <link rel="alternate" href="/atom.xml" title="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些" type="application/atom+xml">
   <link rel="canonical" href="https://kujirasama.cn/2019/08/05/init的角色和任务/">
 
@@ -250,11 +250,19 @@
                 
               
 
-              <time title="Created: 2019-08-05 20:44:17 / Modified: 20:46:01" itemprop="dateCreated datePublished" datetime="2019-08-05T20:44:17+08:00">2019-08-05</time>
+              <time title="Created: 2019-08-05 20:44:17" itemprop="dateCreated datePublished" datetime="2019-08-05T20:44:17+08:00">2019-08-05</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-06 00:43:24" itemprop="dateModified" datetime="2019-08-06T00:43:24+08:00">2019-08-06</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -282,7 +290,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="init的角色和任务"><a href="#init的角色和任务" class="headerlink" title="init的角色和任务"></a>init的角色和任务</h2><p>在桌面linux中，第一个用户态进程为<code>/sbininit</code>，它会读取<code>/etc/inittab</code>文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下<code>CTRL+Alt+Del</code>组合键时该做出何种反应等信息。</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在桌面linux中，第一个用户态进程为<code>/sbininit</code>，它会读取<code>/etc/inittab</code>文件，以获取所支持的”运行级“（run-levels）、运行时配置信息（单用户、多用户、网络文件系统等）、需随机启动的进程以及当下用户按下<code>CTRL+Alt+Del</code>组合键时该做出何种反应等信息。</p>
 <p>在android中也是用这样的init程序，但android中的init和linux中的init仅仅是名字相同罢了，它们之前的区别如下表所示：</p>
 <table>
 <thead>
@@ -878,7 +886,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#init的角色和任务"><span class="nav-number">1.</span> <span class="nav-text">init的角色和任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统属性"><span class="nav-number">1.1.</span> <span class="nav-text">系统属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#property-service"><span class="nav-number">1.1.1.</span> <span class="nav-text">property_service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的namespace前缀"><span class="nav-number">1.1.2.</span> <span class="nav-text">特殊的namespace前缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性的访问方法"><span class="nav-number">1.1.3.</span> <span class="nav-text">属性的访问方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rc文件"><span class="nav-number">1.2.</span> <span class="nav-text">.rc文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#trigger、action和service"><span class="nav-number">1.2.1.</span> <span class="nav-text">trigger、action和service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#init-rc的语法和命令集"><span class="nav-number">1.2.2.</span> <span class="nav-text">init.rc的语法和命令集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动服务"><span class="nav-number">1.2.3.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合键"><span class="nav-number">1.2.4.</span> <span class="nav-text">组合键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mount文件系统"><span class="nav-number">1.2.5.</span> <span class="nav-text">mount文件系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init总结"><span class="nav-number">1.3.</span> <span class="nav-text">init总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化流程"><span class="nav-number">1.3.1.</span> <span class="nav-text">初始化流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主循环"><span class="nav-number">1.3.2.</span> <span class="nav-text">主循环</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统属性"><span class="nav-number">1.</span> <span class="nav-text">系统属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#property-service"><span class="nav-number">1.1.</span> <span class="nav-text">property_service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的namespace前缀"><span class="nav-number">1.2.</span> <span class="nav-text">特殊的namespace前缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性的访问方法"><span class="nav-number">1.3.</span> <span class="nav-text">属性的访问方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rc文件"><span class="nav-number">2.</span> <span class="nav-text">.rc文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#trigger、action和service"><span class="nav-number">2.1.</span> <span class="nav-text">trigger、action和service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#init-rc的语法和命令集"><span class="nav-number">2.2.</span> <span class="nav-text">init.rc的语法和命令集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动服务"><span class="nav-number">2.3.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合键"><span class="nav-number">2.4.</span> <span class="nav-text">组合键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mount文件系统"><span class="nav-number">2.5.</span> <span class="nav-text">mount文件系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init总结"><span class="nav-number">3.</span> <span class="nav-text">init总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化流程"><span class="nav-number">3.1.</span> <span class="nav-text">初始化流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主循环"><span class="nav-number">3.2.</span> <span class="nav-text">主循环</span></a></li></ol></li></ol></div>
             
 
           </div>
