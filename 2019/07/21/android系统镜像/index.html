@@ -1,312 +1,288 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。  Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。 boot镜像：由内核和r">
+<meta name="keywords" content="Android,读书笔记,镜像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android系统镜像">
+<meta property="og:url" content="https://kujirasama.cn/2019/07/21/android系统镜像/index.html">
+<meta property="og:site_name" content="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
+<meta property="og:description" content="​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。  Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。 boot镜像：由内核和r">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-07-21T14:44:27.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android系统镜像">
+<meta name="twitter:description" content="​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。  Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。 boot镜像：由内核和r">
+  <link rel="alternate" href="/atom.xml" title="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些" type="application/atom+xml">
+  <link rel="canonical" href="https://kujirasama.cn/2019/07/21/android系统镜像/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
   <title>android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些</title>
   
-  
-  <meta name="description" content="什么都略懂一点，生活更多彩一些">
-  
 
-  
-  <link rel="alternate" href="/atom.xml" title="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
-  
 
-  <meta name="HandheldFriendly" content="True">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <!-- meta -->
-  
 
-  <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
-  
 
-  
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
-  
 
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
-  
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
 
-  
-  
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body>
-  
-  
-  <header class="l_header pure">
-  <div id="loading-bar-wrapper">
-    <div id="loading-bar" class="pure"></div>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
   </div>
 
-	<div class='wrapper'>
-		<div class="nav-main container container--flex">
-      <a class="logo flat-box" href='/' >
-        
-          Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些
-        
-      </a>
-			<div class='menu navgation'>
-				<ul class='h-list'>
-          
-  					
-  						<li>
-								<a class="nav flat-box" href="/"
-                  
-                  
-                  id="home">
-									<i class='fas fa-grin fa-fw'></i>&nbsp;近期文章
-								</a>
-							</li>
-      			
-  						<li>
-								<a class="nav flat-box" href="/categories/"
-                  
-                    rel="nofollow"
-                  
-                  
-                  id="categories">
-									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
-								</a>
-							</li>
-      			
-  						<li>
-								<a class="nav flat-box" href="/tags/"
-                  
-                    rel="nofollow"
-                  
-                  
-                  id="tags">
-									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
-								</a>
-							</li>
-      			
-  						<li>
-								<a class="nav flat-box" href="/archives/"
-                  
-                    rel="nofollow"
-                  
-                  
-                  id="archives">
-									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
-								</a>
-							</li>
-      			
-      		
-				</ul>
-			</div>
-
-			
-				<div class="m_search">
-					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="Search" />
-						<i class="icon fas fa-search fa-fw"></i>
-					</form>
-				</div>
-			
-			<ul class='switcher h-list'>
-				
-					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
-				
-				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
-			</ul>
-		</div>
-
-		<div class='nav-sub container container--flex'>
-			<a class="logo flat-box"></a>
-			<ul class='switcher h-list'>
-				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
-        
-          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
-        
-			</ul>
-		</div>
-	</div>
-</header>
-	<aside class="menu-phone">
-    <header>
-		<nav class="menu navgation">
-      <ul>
-        
-          
-            <li>
-							<a class="nav flat-box" href="/"
-                
-                
-                id="home">
-								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
-							</a>
-            </li>
-          
-            <li>
-							<a class="nav flat-box" href="/archives/"
-                
-                  rel="nofollow"
-                
-                
-                id="archives">
-								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
-							</a>
-            </li>
-          
-            <li>
-							<a class="nav flat-box" href="/categories/"
-                
-                  rel="nofollow"
-                
-                
-                id="categories">
-								<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
-							</a>
-            </li>
-          
-            <li>
-							<a class="nav flat-box" href="/tags/"
-                
-                  rel="nofollow"
-                
-                
-                id="tags">
-								<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
-							</a>
-            </li>
-          
-            <li>
-							<a class="nav flat-box" href="/about/"
-                
-                  rel="nofollow"
-                
-                
-                id="about">
-								<i class='fas fa-info-circle fa-fw'></i>&nbsp;关于小站
-							</a>
-            </li>
-          
-       
-      </ul>
-		</nav>
-    </header>
-	</aside>
-<script>setLoadingBarProgress(40);</script>
-
-
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      <div class='l_main'>
-  
-
-  
-    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
-      
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  
-    <h1 class="title">
-      <a href="/2019/07/21/android系统镜像/">
-        android系统镜像
-      </a>
-    </h1>
-  
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="https://kujirasama.cn" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>Mu Yi</p>
-    </a>
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-07-21</p>
-  </a>
 </div>
 
-          
-        
-          
-            
+
+<nav class="site-nav">
   
-  <div class='new-meta-item category'>
-    <a href='/categories/安卓架构大剖析/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>安卓架构大剖析</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-  
-    <div class="new-meta-item browse busuanzi">
-      <a class='notlink'>
-        <i class="fas fa-eye" aria-hidden="true"></i>
-        <p>
-          <span id="busuanzi_value_page_pv">
-            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
-          </span>
-        </p>
-      </a>
-    </div>
-  
-
-
-          
-        
-          
-            
-
-          
-        
-      </div>
+  <ul id="menu" class="menu">
       
-        <hr>
       
-    </div>
-  </section>
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。</p>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kujirasama.cn/2019/07/21/android系统镜像/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mu Yi">
+      <meta itemprop="description" content="什么都略懂一点，生活更多彩一些">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">android系统镜像
+
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-07-21 18:30:58 / Modified: 22:44:27" itemprop="dateCreated datePublished" datetime="2019-07-21T18:30:58+08:00">2019-07-21</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/安卓架构大剖析/" itemprop="url" rel="index"><span itemprop="name">安卓架构大剖析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。</p>
 <ul>
 <li>Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入<code>/aboot</code>分区。</li>
 <li>boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在<code>/init.rc</code>和相关文件中规定了其它目录的加载方法。通常被刷入<code>/boot</code>分区。</li>
@@ -552,595 +528,226 @@
 </tr>
 </tbody></table>
 
-        </div>
-        
-          
-
-
-  <section class='meta' id="footer-meta">
-    <hr>
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-07-21T22:44:27+08:00">
-  <a class='notlink'>
-    <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>last updated at Jul 21, 2019</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Android/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Android</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/读书笔记/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>读书笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/镜像/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>镜像</p></a></div>
-
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
-          
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://kujirasama.cn/2019/07/21/android系统镜像/&title=android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。
-
-Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。
-boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在/init.rc和相关文件中规定了其它目录的加载方法。通常被刷入/boot分区。
-recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入/recovery分区。
-/system镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。
-/data镜像：存放的“默认出厂设置”的数据，它是/system分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
-          
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://kujirasama.cn/2019/07/21/android系统镜像/&title=android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。
-
-Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。
-boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在/init.rc和相关文件中规定了其它目录的加载方法。通常被刷入/boot分区。
-recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入/recovery分区。
-/system镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。
-/data镜像：存放的“默认出厂设置”的数据，它是/system分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3awY7qQAwEQP7/p9nrSojQPY4Rh8oJhX3ENU8aOx4/HvH1/He93vl///rb1798vf+8vB4bFx4eHt4g9Ouw3jGSQCeYZHHfLgEeHh7eGi/ZrK9TRRL69e6dPyuJGQ8PD+93eM/guqtonpTmeHh4eL/Ju/6FOpQ4GeDh4eH9Ai9pB+Rd0zbE5PfXey14eHh4C6dIv/N55XwPDw8Pb3yqnrcYNhoN8wsPDw9vg9eWs0mg7dHXWUmdtzDw8PDwNniTf5CMYbXb/aSNWxffeHh4eEe8s9AnqWK+QMX/FR4eHt4yL9mOJwNSbWvjrLjHw8PD2+NdF6kb2/13BhTw8PDwvsObtERzdt5WSBbuwzLh4eHhLfPapmqy6efhni3Nh1IbDw8Pb4HXFtD11jxuN+Sl/4en4+Hh4S3w2lZs3j7IU06+KO1QFx4eHt5dvLwhm397NjiVf07SwIc3Bjw8PLwx72xrPksM+UZ/Q4GOh4eHt8xrX+zboNtRgPYF4O3QFR4eHt6tvPwx82buWTmePL1OFXh4eHgLvLYHnOPPBhHuagfj4eHh3cXbGAVog0iaxUkkb98b8PDw8G7inR3Ynw1pnSHz4y48PDy87/Ams0lJwV23WQcl+9v48fDw8NZ4dSVe3pkU2flxGh4eHt43eXlT4OwwrD3KytNSfaaHh4eHdxOvKFIHg1D5t2eJoZgsw8PDwxvz5s2ItiDOS+TJguLh4eHdy3uW16QlcVfQxXgBHh4e3gKvPYJqhwkmgwWTz3h4eHjbvL1k0K5i26qIEgMeHh7eGi8fGmhhk3SSL8rbX8PDw8P7AV4LO3tWmwZuSwx4eHh4C7zkeCwHtMmmHr3Cw8PDW+O1A09nW3zbJp4sIh4eHt4eb/LCPzm+atl5msHDw8Nb4/0B+JRUuWODLI0AAAAASUVORK5CYII='>
-        
-          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/wechat.png">
-        
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
-          
-          href="http://service.weibo.com/share/share.php?url=https://kujirasama.cn/2019/07/21/android系统镜像/&title=android系统镜像 | Kujira Sama`s Blog | 什么都略懂一点，生活更多彩一些&summary=​一般为一套镜像，由厂商提供，刷机时会将各个镜像刷入到各自的分区中。
-
-Boot Loader：启动时由CPU（或芯片中的应用处理器）执行的代码。这些代码一般用来寻找和加载boot镜像；或者固件升级；或者让系统启动到recovery模式下。多数Boot Loader还会实现简单的usb栈，用来提供给用户控制启动以及升级过程（fastboot）。通常被刷入/aboot分区。
-boot镜像：由内核和ramdisk组成，用来加载系统。ramdisk用作root文件系统，里面包含系统内目录的基本框架，并在/init.rc和相关文件中规定了其它目录的加载方法。通常被刷入/boot分区。
-recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失败或OTA升级时把系统加载到recovery模式下。通常被刷入/recovery分区。
-/system镜像：存放的完整的android系统，包含谷歌提供的可执行文件和框架，还有厂商提供的类似定制化的东西。
-/data镜像：存放的“默认出厂设置”的数据，它是/system分区中程序正常运行所必需的文件。恢复出厂设置，只需要将这个分区的镜像刷写回去就可以了。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
-          
-        </a>
-      
-    
-      
-        <a class='qrcode' rel="external nofollow noopener noreferrer" href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3awY7qQAwEQP7/p9nrSojQPY4Rh8oJhX3ENU8aOx4/HvH1/He93vl///rb1798vf+8vB4bFx4eHt4g9Ouw3jGSQCeYZHHfLgEeHh7eGi/ZrK9TRRL69e6dPyuJGQ8PD+93eM/guqtonpTmeHh4eL/Ju/6FOpQ4GeDh4eH9Ai9pB+Rd0zbE5PfXey14eHh4C6dIv/N55XwPDw8Pb3yqnrcYNhoN8wsPDw9vg9eWs0mg7dHXWUmdtzDw8PDwNniTf5CMYbXb/aSNWxffeHh4eEe8s9AnqWK+QMX/FR4eHt4yL9mOJwNSbWvjrLjHw8PD2+NdF6kb2/13BhTw8PDwvsObtERzdt5WSBbuwzLh4eHhLfPapmqy6efhni3Nh1IbDw8Pb4HXFtD11jxuN+Sl/4en4+Hh4S3w2lZs3j7IU06+KO1QFx4eHt5dvLwhm397NjiVf07SwIc3Bjw8PLwx72xrPksM+UZ/Q4GOh4eHt8xrX+zboNtRgPYF4O3QFR4eHt6tvPwx82buWTmePL1OFXh4eHgLvLYHnOPPBhHuagfj4eHh3cXbGAVog0iaxUkkb98b8PDw8G7inR3Ynw1pnSHz4y48PDy87/Ams0lJwV23WQcl+9v48fDw8NZ4dSVe3pkU2flxGh4eHt43eXlT4OwwrD3KytNSfaaHh4eHdxOvKFIHg1D5t2eJoZgsw8PDwxvz5s2ItiDOS+TJguLh4eHdy3uW16QlcVfQxXgBHh4e3gKvPYJqhwkmgwWTz3h4eHjbvL1k0K5i26qIEgMeHh7eGi8fGmhhk3SSL8rbX8PDw8P7AV4LO3tWmwZuSwx4eHh4C7zkeCwHtMmmHr3Cw8PDW+O1A09nW3zbJp4sIh4eHt4eb/LCPzm+atl5msHDw8Nb4/0B+JRUuWODLI0AAAAASUVORK5CYII='>
-        
-          <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qrcode.png">
-        
-        </a>
-      
-    
-  </div>
-</div>
-
-
-
-        
-      
     </div>
-  </section>
 
+    
+    
+    
 
+    <footer class="post-footer">
+          
         
-        
-            <div class="prev-next">
-                
-                    <section class="prev">
-                        <span class="art-item-left">
-                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
-                            <h4>
-                                <a href="/2019/08/04/ARTS-3/" rel="prev" title="ARTS-3">
-                                  
-                                      ARTS-3
-                                  
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/tags/算法/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>算法</a> <a class="tag" href="/tags/Tips/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Tips</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
-                
-                    <section class="next">
-                        <span class="art-item-right" aria-hidden="true">
-                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
-                            <h4>
-                                <a href="/2019/07/21/受保护的文件系统和伪文件系统/" rel="prev" title="受保护的文件系统和伪文件系统">
-                                    
-                                        受保护的文件系统和伪文件系统
-                                    
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/tags/Android/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Android</a> <a class="tag" href="/tags/文件系统/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>文件系统</a> <a class="tag" href="/tags/读书笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>读书笔记</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
-            </div>
-        
-      </section>
-    </article>
-  
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box comments">
-    <section class="article typo">
-      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-spinner fa-spin fa-fw"></i>
+        <div class="post-tags">
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/镜像/" rel="tag"># 镜像</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/07/21/受保护的文件系统和伪文件系统/" rel="next" title="受保护的文件系统和伪文件系统">
+                <i class="fa fa-chevron-left"></i> 受保护的文件系统和伪文件系统
+              </a>
+            
           </div>
-        </section>
-      
-    </section>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/04/ARTS-3/" rel="prev" title="ARTS-3">
+                ARTS-3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
   </article>
 
+  </div>
 
+
+          </div>
+          
+
+
+        </div>
+          
   
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
 
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: 'android系统镜像',
-      tools: true
-    }
-  </script>
-
-
-</div>
-<aside class='l_side'>
-  
-    
-    
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
       
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mu Yi</p>
+  <div class="site-description motion-element" itemprop="description">什么都略懂一点，生活更多彩一些</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
         
-          
-          
-            <section class='widget author'>
-  <div class='content pure'>
-    
-      <div class='avatar'>
-        <img class='avatar' src='/images/kujira.jpg'/>
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
       </div>
     
-    
-    
-      <div class="social-wrapper">
+      
+      
+      <div class="site-state-item site-state-categories">
         
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+        
+        
           
         
           
-            <a href="mailto:bastijr@gmail.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
         
-          
-            <a href="https://github.com/bastijr"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=18082136"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
         
       </div>
     
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
   </div>
-</section>
 
-          
-        
-      
-        
-          
-          
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
             
-  <section class='widget toc-wrapper'>
-    
-<header class='pure'>
-  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
-  
-    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
-  
-</header>
-
-    <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Boot-Loader"><span class="toc-text">Boot Loader</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bootloader-镜像"><span class="toc-text">bootloader 镜像</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boot镜像"><span class="toc-text">Boot镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内核"><span class="toc-text">内核</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#arm中的设备树"><span class="toc-text">arm中的设备树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RAM-disk"><span class="toc-text">RAM disk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#system与-data镜像"><span class="toc-text">/system与/data镜像</span></a></li></ol>
-    </div>
-  </section>
-
-
-          
-        
-      
-        
-          
-          
-            <section class='widget grid'>
-  
-<header class='pure'>
-  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
-  
-</header>
-
-  <div class='content pure'>
-    <ul class="grid navgation">
-      
-        <li><a class="flat-box" title="/" href="/"
-          
-          
-          id="home">
-          
-            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
-          
-          近期文章
-        </a></li>
-      
-        <li><a class="flat-box" title="/archives/" href="/archives/"
-          
-            rel="nofollow"
-          
-          
-          id="archives">
-          
-            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
-          
-          文章归档
-        </a></li>
-      
-        <li><a class="flat-box" title="/about/" href="/about/"
-          
-            rel="nofollow"
-          
-          
-          id="about">
-          
-            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
-          
-          关于小站
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
-
-          
-        
-      
-        
-          
-          
             
-  <section class='widget category'>
-    
-<header class='pure'>
-  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
-  
-    <a class="rightBtn"
-    
-      rel="nofollow"
-    
-    
-    href="/categories/"
-    title="categories/">
-    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
-  
-</header>
-
-    <div class='content pure'>
-      <ul class="entry">
-        
-          <li><a class="flat-box" title="/categories/ARTS/" href="/categories/ARTS/"><div class='name'>ARTS</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box" title="/categories/安卓架构大剖析/" href="/categories/安卓架构大剖析/"><div class='name'>安卓架构大剖析</div><div class='badge'>(4)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-          
-        
-      
-        
-          
-          
             
-  <section class='widget tagcloud'>
-    
-<header class='pure'>
-  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
-  
-    <a class="rightBtn"
-    
-      rel="nofollow"
-    
-    
-    href="/tags/"
-    title="tags/">
-    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
-  
-</header>
-
-    <div class='content pure'>
-      <a href="/tags/Android/" style="font-size: 24px; color: #555">Android</a> <a href="/tags/Tips/" style="font-size: 20.67px; color: #6c6c6c">Tips</a> <a href="/tags/init/" style="font-size: 14px; color: #999">init</a> <a href="/tags/文件系统/" style="font-size: 17.33px; color: #828282">文件系统</a> <a href="/tags/算法/" style="font-size: 20.67px; color: #6c6c6c">算法</a> <a href="/tags/读书笔记/" style="font-size: 24px; color: #555">读书笔记</a> <a href="/tags/镜像/" style="font-size: 14px; color: #999">镜像</a>
-    </div>
-  </section>
-
-
-          
-        
-      
-        
-          
-          
             
 
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Boot-Loader"><span class="nav-number">1.</span> <span class="nav-text">Boot Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bootloader-镜像"><span class="nav-number">1.1.</span> <span class="nav-text">bootloader 镜像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boot镜像"><span class="nav-number">2.</span> <span class="nav-text">Boot镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核"><span class="nav-number">3.</span> <span class="nav-text">内核</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#arm中的设备树"><span class="nav-number">3.1.</span> <span class="nav-text">arm中的设备树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAM-disk"><span class="nav-number">4.</span> <span class="nav-text">RAM disk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system与-data镜像"><span class="nav-number">5.</span> <span class="nav-text">/system与/data镜像</span></a></li></ol></div>
+            
 
-  <section class='widget music'>
-    
-<header class='pure'>
-  <div><i class="fas fa-compact-disc fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;最近在听</div>
-  
-    <a class="rightBtn"
-    
-      rel="external nofollow noopener noreferrer"
-    
-    
-      target="_blank"
-    
-    href="https://music.163.com/#/user/home?id=18082136"
-    title="https://music.163.com/#/user/home?id=18082136">
-    <i class="far fa-heart fa-fw"></i></a>
-  
-</header>
-
-    <div class='content pure'>
+          </div>
+        </div>
+      <!--/noindex-->
       
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
-  <div class="aplayer"
-    data-theme="#1BCDFC"
-    
-    
-    data-mode="circulation"
-    data-server="netease"
-    data-type="playlist"
-    data-id="14897952"
-    data-volume="0.5">
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
-
 
     </div>
-  </section>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-          
-        
-      
-    
+      </div>
+    </main>
 
-  
-</aside>
-
-<footer id="footer" class="clearfix">
-  
-  
-    <div class="social-wrapper">
-      
-        
-          <a href="/atom.xml"
-            class="social fas fa-rss flat-btn"
-            target="_blank"
-            rel="external nofollow noopener noreferrer">
-          </a>
-        
-      
-        
-          <a href="mailto:bastijr@gmail.com"
-            class="social fas fa-envelope flat-btn"
-            target="_blank"
-            rel="external nofollow noopener noreferrer">
-          </a>
-        
-      
-        
-          <a href="https://github.com/bastijr"
-            class="social fab fa-github flat-btn"
-            target="_blank"
-            rel="external nofollow noopener noreferrer">
-          </a>
-        
-      
-        
-          <a href="https://music.163.com/#/user/home?id=18082136"
-            class="social fas fa-headphones-alt flat-btn"
-            target="_blank"
-            rel="external nofollow noopener noreferrer">
-          </a>
-        
-      
-    </div>
-  
-  <br>
-  <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mu Yi</span>
 </div>
-  <div>
-    Use
-    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
-    as theme
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
     
-      , 
-      total visits
-      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
-      times
-    
-    . 
+
   </div>
-</footer>
-<script>setLoadingBarProgress(80);</script>
-
-
-      <script>setLoadingBarProgress(60);</script>
-    </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-
-  <script>
-    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
-    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
-    var ALGOLIA_API_KEY = "";
-    var ALGOLIA_APP_ID = "";
-    var ALGOLIA_INDEX_NAME = "";
-    var AZURE_SERVICE_NAME = "";
-    var AZURE_INDEX_NAME = "";
-    var AZURE_QUERY_KEY = "";
-    var BAIDU_API_ID = "";
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/"||"/";
-    if(!ROOT.endsWith('/'))ROOT += '/';
-  </script>
-
-<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
-
-
-  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      const $reveal = $('.reveal');
-      if ($reveal.length === 0) return;
-      const sr = ScrollReveal({ distance: 0 });
-      sr.reveal('.reveal');
-    });
-  </script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
-
-
-
 
   
-  
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
-    <script type="text/javascript">
-      $(function(){
-        if ('.cover') {
-          $('.cover').backstretch(
-          ["https://img.vim-cn.com/6d/a0c9e6f9efad8b731cb7376504bd10d79d2053.jpg"],
-          {
-            duration: "6000",
-            fade: "2500"
-          });
-        } else {
-          $.backstretch(
-          ["https://img.vim-cn.com/6d/a0c9e6f9efad8b731cb7376504bd10d79d2053.jpg"],
-          {
-            duration: "6000",
-            fade: "2500"
-          });
-        }
-      });
-    </script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
   
 
 
@@ -1151,155 +758,36 @@ recovery镜像：由内核和ramdisk（另一个）组成，用来在启动失�
 
 
 
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-    
-      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
-    
+
   
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var notify = 'true' == true;
-  var verify = 'true' == true;
-  var valine = new Valine();
-  valine.init({
-    el: '#valine_container',
-    notify: notify,
-    verify: verify,
-    guest_info: guest_info,
-    
-    appId: "siq45X1ffilqs9Bn0z91BoGI-gzGzoHsz",
-    appKey: "J6d8keuLrR6lNjGhG3jpyvs5",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'mp',
-    lang:'zh-cn',
-    highlight:'true'
-  })
-  </script>
+
+  
 
 
-
-  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
 
 
-
-
-<!-- 复制 -->
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  let COPY_SUCCESS = "Copied";
-  let COPY_FAILURE = "Copy failed";
-  /*页面载入完成后，创建复制按钮*/
-  !function (e, t, a) {
-    /* code */
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-
-      clipboard.on('success', function(e) {
-        //您可以加入成功提示
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
-        success_prompt(COPY_SUCCESS);
-        e.clearSelection();
-      });
-      clipboard.on('error', function(e) {
-        //您可以加入失败提示
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
-        fail_prompt(COPY_FAILURE);
-      });
-    }
-    initCopyCode();
-
-  }(window, document);
-
-  /**
-   * 弹出式提示框，默认1.5秒自动消失
-   * @param message 提示信息
-   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
-   * @param time 消失时间
-   */
-  var prompt = function (message, style, time)
-  {
-      style = (style === undefined) ? 'alert-success' : style;
-      time = (time === undefined) ? 1500 : time*1000;
-      $('<div>')
-          .appendTo('body')
-          .addClass('alert ' + style)
-          .html(message)
-          .show()
-          .delay(time)
-          .fadeOut();
-  };
-
-  // 成功提示
-  var success_prompt = function(message, time)
-  {
-      prompt(message, 'alert-success', time);
-  };
-
-  // 失败提示
-  var fail_prompt = function(message, time)
-  {
-      prompt(message, 'alert-danger', time);
-  };
-
-  // 提醒
-  var warning_prompt = function(message, time)
-  {
-      prompt(message, 'alert-warning', time);
-  };
-
-  // 信息提示
-  var info_prompt = function(message, time)
-  {
-      prompt(message, 'alert-info', time);
-  };
-
-</script>
-
-
-<!-- fancybox -->
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
-  });
-</script>
-
-
-
-
-
-  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
